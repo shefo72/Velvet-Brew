@@ -1,2 +1,28 @@
 @import "tailwindcss";
 @config "../tailwind.config.js";
+
+@layer components {
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+/* Swiper Pagination */
+
+.swiper-pagination-bullet{
+    width: 12px !important;
+    height: 12px !important;
+    background:#8B7355 !important;
+    opacity: 1 !important;
+    transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet:hover{
+    background:  #4A3728!important;
+    transform: scale(1.1);
+}
+
+.swiper-pagination-bullet-active{
+    background:  #E8E0D4  !important;
+    width: 32px !important;
+    border-radius: 6px !important;
+}

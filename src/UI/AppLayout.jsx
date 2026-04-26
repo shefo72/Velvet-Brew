@@ -8,9 +8,12 @@ function AppLayout() {
     <>
       <div className="min-h-screen flex flex-col justify-between">
         <Header />
-        <Outlet />
+        <div className="container">
+          <Outlet />
+        </div> 
         <Footer />
       </div>
+      
     </>
   );
 }
