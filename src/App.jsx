@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 
 import AppLayout from "./UI/AppLayout";
 import Home from "./pages/Home";
+import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import ErrorPage from "./pages/ErrorPage";
@@ -30,6 +31,7 @@ function App() {
       children: [
         { path: "/", element: <Home /> },
         { path: "/login", element: <Login /> },
+        { path: "/signup", element: <SignUp /> },
         { path: "/cart", element: <Cart /> },
         { path: "/menu", element: <Menu /> },
         { path: "/dashboard", element: <Dashboard /> },
