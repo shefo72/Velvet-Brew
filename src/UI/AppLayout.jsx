@@ -6,9 +6,11 @@ import Footer from "./Footer";
 function AppLayout() {
   return (
     <>
-      <Header />
-      <Outlet />
-      <Footer />
+      <div className="min-h-screen flex flex-col justify-between">
+        <Header />
+        <Outlet />
+        <Footer />
+      </div>
     </>
   );
 }
