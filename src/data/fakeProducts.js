@@ -46,7 +46,7 @@ export const products = [
   },
   {
     id: 3,
-    title: "Slow-Drip Cold Brew",
+    title: "Slow-Drip",
     basePrice: 6.0,
     description:
       "Cold-steeped for 18 hours to achieve a crisp, refreshing, and naturally sweet profile.",
@@ -92,7 +92,7 @@ export const products = [
   },
   {
     id: 5,
-    title: "Classic Butter Croissant",
+    title: "Butter Croissant",
     basePrice: 4.25,
     description:
       "Laminated with premium French butter for 72 hours. Golden, flaky, and airy.",
@@ -119,7 +119,7 @@ export const products = [
   },
   {
     id: 7,
-    title: "Pistachio Ganache Tart",
+    title: "Pistachio Tart",
     basePrice: 6.5,
     description:
       "Decadent roasted pistachio ganache filling with a white chocolate drizzle.",
@@ -141,7 +141,7 @@ export const products = [
   },
   {
     id: 8,
-    title: "Avocado Sourdough Toast",
+    title: "Avocado Toast",
     basePrice: 12.0,
     description:
       "Crushed avocado, radish, micro-greens, and chili flakes on toasted sourdough.",
@@ -160,7 +160,7 @@ export const products = [
   },
   {
     id: 9,
-    title: "Smoked Salmon Toast",
+    title: "Salmon Toast",
     basePrice: 14.5,
     description:
       "Premium Norwegian salmon, cream cheese, capers, and dill on rye bread.",
@@ -178,7 +178,7 @@ export const products = [
   },
   {
     id: 10,
-    title: "Mushroom & Truffle Toast",
+    title: "Truffle Toast",
     basePrice: 13.5,
     description:
       "Wild sautéed mushrooms with white truffle oil and parmesan shavings.",

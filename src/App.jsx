@@ -32,7 +32,6 @@ function App() {
         { path: "/login", element: <Login /> },
         { path: "/cart", element: <Cart /> },
         { path: "/menu", element: <Menu /> },
-        { path: "/dashboard", element: <Dashboard /> },
         { path: "/contact", element: <Contact /> },
         {
           path: "/orders/:orderId",
@@ -44,6 +43,7 @@ function App() {
         },
       ],
     },
+    { path: "/dashboard", element: <Dashboard /> },
   ]);
 
   return (
