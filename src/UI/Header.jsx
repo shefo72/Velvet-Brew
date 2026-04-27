@@ -9,7 +9,7 @@ const navLinks = [
   { name: "Cart", path: "/cart" },
 ];
 
-function Header() {
+function Header({ search, setSearch }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -49,8 +49,10 @@ function Header() {
             />
             <input
               type="text"
-              placeholder="Search For Products"
-              className="bg-[#FFFFFF54] text-[#2B2B2B] placeholder:text-muted-coffee border border-primary-coffee/25  rounded-xl py-2 pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary-coffee/30 w-48 lg:w-64 transition-all"
+              placeholder="Search menu..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="bg-[#FFFFFF54] text-primary-coffee placeholder:text-muted-coffee border border-primary-coffee/25  rounded-full py-2 pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary-coffee/30 w-48 lg:w-64 transition-all"
             />
           </div>
 
@@ -105,6 +107,10 @@ function Header() {
               size={18}
             />
             <input
+              search={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
               type="text"
               placeholder="Search For Products"
               className="bg-[#FFFFFF54] w-full rounded-full py-3 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary-coffee/30"

@@ -1,6 +1,7 @@
 export const products = [
   {
     id: 1,
+    category: "section4",
     title: "Espresso",
     basePrice: 4.5,
     description:
@@ -19,6 +20,7 @@ export const products = [
   },
   {
     id: 2,
+    category: "section4",
     title: "Flat White",
     basePrice: 5.5,
     description:
@@ -46,7 +48,8 @@ export const products = [
   },
   {
     id: 3,
-    title: "Slow-Drip",
+    category: "section4",
+    title: "Slow-Drip Cold Brew",
     basePrice: 6.0,
     description:
       "Cold-steeped for 18 hours to achieve a crisp, refreshing, and naturally sweet profile.",
@@ -65,6 +68,7 @@ export const products = [
   },
   {
     id: 4,
+    category: "section3",
     title: "Vanilla Latte",
     basePrice: 5.75,
     description:
@@ -92,7 +96,8 @@ export const products = [
   },
   {
     id: 5,
-    title: "Butter Croissant",
+    category: "section3",
+    title: "Classic Butter Croissant",
     basePrice: 4.25,
     description:
       "Laminated with premium French butter for 72 hours. Golden, flaky, and airy.",
@@ -110,6 +115,7 @@ export const products = [
   },
   {
     id: 6,
+    category: "section3",
     title: "Almond Croissant",
     basePrice: 5.5,
     description:
@@ -119,7 +125,8 @@ export const products = [
   },
   {
     id: 7,
-    title: "Pistachio Tart",
+    category: "section2",
+    title: "Pistachio Ganache Tart",
     basePrice: 6.5,
     description:
       "Decadent roasted pistachio ganache filling with a white chocolate drizzle.",
@@ -141,7 +148,8 @@ export const products = [
   },
   {
     id: 8,
-    title: "Avocado Toast",
+    category: "section2",
+    title: "Avocado Sourdough Toast",
     basePrice: 12.0,
     description:
       "Crushed avocado, radish, micro-greens, and chili flakes on toasted sourdough.",
@@ -160,7 +168,8 @@ export const products = [
   },
   {
     id: 9,
-    title: "Salmon Toast",
+    category: "section1",
+    title: "Smoked Salmon Toast",
     basePrice: 14.5,
     description:
       "Premium Norwegian salmon, cream cheese, capers, and dill on rye bread.",
@@ -178,7 +187,8 @@ export const products = [
   },
   {
     id: 10,
-    title: "Truffle Toast",
+    category: "section1",
+    title: "Mushroom & Truffle Toast",
     basePrice: 13.5,
     description:
       "Wild sautéed mushrooms with white truffle oil and parmesan shavings.",

@@ -20,3 +20,24 @@
   border-radius: 10px;
   border: 3px solid #faf8f5;
 }
+
+/* Swiper Pagination */
+
+.swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  background: #8b7355 !important;
+  opacity: 1 !important;
+  transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet:hover {
+  background: #4a3728 !important;
+  transform: scale(1.1);
+}
+
+.swiper-pagination-bullet-active {
+  background: #e8e0d4 !important;
+  width: 32px !important;
+  border-radius: 6px !important;
+}

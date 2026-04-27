@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         serif: ['"Playfair Display"', "serif"],
+        playfair: ['"Playfair Display"', "serif"],
       },
       colors: {
         "primary-coffee": "#3C2A21",
