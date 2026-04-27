@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import AppLayout from "./UI/AppLayout";
 import Home from "./pages/Home";
+import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import ErrorPage from "./pages/ErrorPage";
@@ -34,6 +35,7 @@ const [search, setSearch] = useState("");
       children: [
         { path: "/", element: <Home /> },
         { path: "/login", element: <Login /> },
+        { path: "/signup", element: <SignUp /> },
         { path: "/cart", element: <Cart /> },
         { path: "/menu", element: <Menu search={search}/> },
         { path: "/dashboard", element: <Dashboard /> },
