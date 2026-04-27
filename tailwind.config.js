@@ -3,6 +3,9 @@ export default {
   theme: {
     fontFamily: {},
     extend: {
+      fontFamily: {
+        playfair: ['"Playfair Display"', 'serif'],
+      },
       colors: {
         "primary-coffee": "#3C2A21",
         "coffee-hover": "#5A3D2E",

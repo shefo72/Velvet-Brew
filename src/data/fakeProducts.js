@@ -1,6 +1,7 @@
 export const products = [
   {
     id: 1,
+    category: "section4",
     title: "Espresso",
     basePrice: 4.5,
     description:
@@ -19,6 +20,7 @@ export const products = [
   },
   {
     id: 2,
+    category: "section4",
     title: "Flat White",
     basePrice: 5.5,
     description:
@@ -46,6 +48,7 @@ export const products = [
   },
   {
     id: 3,
+    category: "section4",
     title: "Slow-Drip Cold Brew",
     basePrice: 6.0,
     description:
@@ -65,6 +68,7 @@ export const products = [
   },
   {
     id: 4,
+    category: "section3",
     title: "Vanilla Latte",
     basePrice: 5.75,
     description:
@@ -92,6 +96,7 @@ export const products = [
   },
   {
     id: 5,
+    category: "section3",
     title: "Classic Butter Croissant",
     basePrice: 4.25,
     description:
@@ -110,6 +115,7 @@ export const products = [
   },
   {
     id: 6,
+    category: "section3",
     title: "Almond Croissant",
     basePrice: 5.5,
     description:
@@ -119,6 +125,7 @@ export const products = [
   },
   {
     id: 7,
+    category: "section2",
     title: "Pistachio Ganache Tart",
     basePrice: 6.5,
     description:
@@ -141,6 +148,7 @@ export const products = [
   },
   {
     id: 8,
+    category: "section2",
     title: "Avocado Sourdough Toast",
     basePrice: 12.0,
     description:
@@ -160,6 +168,7 @@ export const products = [
   },
   {
     id: 9,
+    category: "section1",
     title: "Smoked Salmon Toast",
     basePrice: 14.5,
     description:
@@ -178,6 +187,7 @@ export const products = [
   },
   {
     id: 10,
+    category: "section1",
     title: "Mushroom & Truffle Toast",
     basePrice: 13.5,
     description:
