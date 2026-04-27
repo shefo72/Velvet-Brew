@@ -1,5 +1,31 @@
+import FeaturesSection from "../components/FeaturesSection";
+import HeroSection from "../components/HeroSection";
+import TestimonialSection from "./../components/TestimonialSection";
+import MenuPreviewSection from "./../components/MenuPreviewSection";
+import ContactSection from "../components/ContactSection";
+
 function Home() {
-  return <div>Home page</div>;
+  return (
+    <main className="bg-[#F5EFE6] ">
+      <HeroSection />
+      <div className="relative">
+        <div
+          className="absolute inset-0 w-full h-full opacity-15 bg-cover bg-center bg-no-repeat z-10"
+          style={{ backgroundImage: "url('/productSection.png')" }}
+        ></div>
+        <MenuPreviewSection />
+        <ContactSection />
+      </div>
+      <div className="relative">
+        <div
+          className="absolute inset-0 w-full h-full opacity-15 bg-cover bg-center bg-no-repeat z-10"
+          style={{ backgroundImage: "url('/productSection.png')" }}
+        ></div>
+        <TestimonialSection />
+        <FeaturesSection />
+      </div>
+    </main>
+  );
 }
 
 export default Home;
