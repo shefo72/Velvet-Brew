@@ -17,8 +17,7 @@ import Menu from "./pages/Menu";
 import Contact from "./pages/Contact";
 
 function App() {
-
-const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("");
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -30,15 +29,14 @@ const [search, setSearch] = useState("");
 
   const router = createBrowserRouter([
     {
-      element: <AppLayout search={search} setSearch={setSearch}/>,
+      element: <AppLayout search={search} setSearch={setSearch} />,
       errorElement: <ErrorPage />,
       children: [
         { path: "/", element: <Home /> },
         { path: "/login", element: <Login /> },
         { path: "/signup", element: <SignUp /> },
         { path: "/cart", element: <Cart /> },
-        { path: "/menu", element: <Menu search={search}/> },
-        { path: "/dashboard", element: <Dashboard /> },
+        { path: "/menu", element: <Menu /> },
         { path: "/contact", element: <Contact /> },
         {
           path: "/orders/:orderId",
@@ -50,6 +48,7 @@ const [search, setSearch] = useState("");
         },
       ],
     },
+    { path: "/dashboard", element: <Dashboard /> },
   ]);
 
   return (

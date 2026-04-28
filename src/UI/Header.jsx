@@ -6,18 +6,18 @@ const navLinks = [
   { name: "Home", path: "/" },
   { name: "Menu", path: "/menu" },
   { name: "Dashboard", path: "/dashboard" },
-  { name: "Contact", path: "contact" },
+  { name: "Cart", path: "/cart" },
 ];
 
 function Header({ search, setSearch }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-[#f9efe7] py-4 px-6 md:px-12 lg:px-24  border-b border-gray-200/25">
+    <nav className="bg-[#F9EFE7F5] py-4 px-6 md:px-12 lg:px-24  border-b border-gray-200/25">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
         <NavLink
           to="/"
-          className="text-2xl font-bold text-primary-coffee italic tracking-wide shrink-0 font-['Liberation_Serif',serif]"
+          className="text-2xl font-bold text-primary-coffee  tracking-wide shrink-0 font-['Liberation_Serif',serif]"
         >
           Velvet Brew
         </NavLink>
@@ -28,10 +28,10 @@ function Header({ search, setSearch }) {
               key={link.name}
               to={link.path}
               className={({ isActive }) =>
-                `text-sm font-medium transition-all pb-1 border-b-[3px] ${
+                `text-sm font-bold transition-all pb-1 border-b-[3px] ${
                   isActive
-                    ? "text-primary-coffee border-primary-coffee"
-                    : "text-muted-coffee hover:text-primary-coffee border-transparent"
+                    ? "text-[#A67B5B] border-[#A67B5B]"
+                    : "text-[#2B2B2B] hover:text-primary-coffee border-transparent"
                 }`
               }
             >
@@ -43,16 +43,16 @@ function Header({ search, setSearch }) {
         <div className="flex items-center gap-5 md:gap-6 ">
           <div className="hidden sm:flex relative items-center">
             <Search
-              className="absolute left-3 text-muted-coffee"
+              className="absolute left-3 text-[#141B34]"
               size={16}
               strokeWidth={2}
             />
             <input
               type="text"
               placeholder="Search menu..."
-               value={search}
+              value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="bg-[#F8ECDA] text-primary-coffee placeholder:text-muted-coffee border border-primary-coffee/25  rounded-full py-2 pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary-coffee/30 w-48 lg:w-64 transition-all"
+              className="bg-[#FFFFFF54] text-primary-coffee placeholder:text-muted-coffee border border-primary-coffee/25  rounded-full py-2 pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary-coffee/30 w-48 lg:w-64 transition-all"
             />
           </div>
 
@@ -107,9 +107,13 @@ function Header({ search, setSearch }) {
               size={18}
             />
             <input
+              search={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
               type="text"
-              placeholder="Search..."
-              className="bg-[#F8ECDA] w-full rounded-full py-3 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary-coffee/30"
+              placeholder="Search For Products"
+              className="bg-[#FFFFFF54] w-full rounded-full py-3 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary-coffee/30"
             />
           </div>
 

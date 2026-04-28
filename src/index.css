@@ -1,28 +1,43 @@
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
-@layer components {
-  .container {
-    @apply mx-auto px-4 sm:px-6 lg:px-8;
-  }
+::selection {
+  background-color: #7a5c4d;
+  color: #faf8f5;
 }
+
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: #faf8f5;
+  border-left: 1px solid #eaddd3;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #7a5c4d;
+  border-radius: 10px;
+  border: 3px solid #faf8f5;
+}
+
 /* Swiper Pagination */
 
-.swiper-pagination-bullet{
-    width: 12px !important;
-    height: 12px !important;
-    background:#8B7355 !important;
-    opacity: 1 !important;
-    transition: all 0.3s ease;
+.swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  background: #8b7355 !important;
+  opacity: 1 !important;
+  transition: all 0.3s ease;
 }
 
-.swiper-pagination-bullet:hover{
-    background:  #4A3728!important;
-    transform: scale(1.1);
+.swiper-pagination-bullet:hover {
+  background: #4a3728 !important;
+  transform: scale(1.1);
 }
 
-.swiper-pagination-bullet-active{
-    background:  #E8E0D4  !important;
-    width: 32px !important;
-    border-radius: 6px !important;
+.swiper-pagination-bullet-active {
+  background: #e8e0d4 !important;
+  width: 32px !important;
+  border-radius: 6px !important;
 }

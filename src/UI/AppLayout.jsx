@@ -7,14 +7,10 @@ function AppLayout({ search, setSearch }) {
   return (
     <>
       <div className="min-h-screen flex flex-col justify-between">
-
-        <Header search={search} setSearch={setSearch}/>
-        <div className="container">
-          <Outlet />
-        </div> 
+        <Header search={search} setSearch={setSearch} />
+        <Outlet context={{ search }} />
         <Footer />
       </div>
-      
     </>
   );
 }
