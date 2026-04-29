@@ -55,9 +55,26 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <RouterProvider router={router} />
-
       {/* Toaster for notification */}
-      <Toaster />
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        toastOptions={{
+          style: {
+            background: "#ffffff",
+            color: "#3a2d28",
+            padding: "16px 24px",
+            fontSize: "14px",
+            fontWeight: "500",
+          },
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 3000,
+          },
+        }}
+      />
     </QueryClientProvider>
   );
 }

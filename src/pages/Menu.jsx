@@ -1,41 +1,23 @@
 import { useOutletContext } from "react-router-dom";
 import { useState } from "react";
+// import { useSelector } from "react-redux";
 
 import { products } from "../data/fakeProducts";
-import ProductCard from "../UI/ProductCard";
+import ProductCard from "./../components/MenuProductCard";
 import EmptyMenu from "../components/EmptyMenu";
 
 const categories = [
   { id: "allProducts", label: "All Collections" },
-  { id: "section1", label: "Fresh Brews" },
-  { id: "section2", label: "Handmade Croissants" },
-  { id: "section3", label: "Artisanal Toasts" },
-  { id: "section4", label: "Seasonal Specials" },
+  { id: "Fresh Brews", label: "Fresh Brews" },
+  { id: "Handmade Croissants", label: "Handmade Croissants" },
+  { id: "Artisanal Toasts", label: "Artisanal Toasts" },
+  { id: "Seasonal Specials", label: "Seasonal Specials" },
 ];
 
 function Menu() {
   const [active, setActive] = useState("allProducts");
   const { search = "" } = useOutletContext() || {};
-
-  const [visibleCount, setVisibleCount] = useState({
-    allProducts: 4,
-    section1: 4,
-    section2: 4,
-    section3: 4,
-    section4: 4,
-  });
-
-  const handleSeeMore = (section) => {
-    const total =
-      section === "allProducts"
-        ? products.length
-        : products.filter((p) => p.category === section).length;
-
-    setVisibleCount((prev) => ({
-      ...prev,
-      [section]: total,
-    }));
-  };
+  // const products = useSelector((state) => state.products.items);
 
   const scrollToSection = (id) => {
     setActive(id);
@@ -43,7 +25,7 @@ function Menu() {
   };
 
   const MatchingProducts = products.filter((p) =>
-    p.title?.toLowerCase().includes(search.toLowerCase()),
+    p.product_name?.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
@@ -85,11 +67,13 @@ function Menu() {
         ) : (
           categories.map((category) => {
             const filteredProducts = products.filter((p) => {
-              const matchesSearch = p.title
+              const matchesSearch = p.product_name
                 ?.toLowerCase()
                 .includes(search.toLowerCase());
+
               const matchesCategory =
-                category.id === "allProducts" || p.category === category.id;
+                category.id === "allProducts" ||
+                p.category_name === category.id;
 
               return matchesSearch && matchesCategory;
             });
@@ -106,25 +90,12 @@ function Menu() {
                   <h3 className="p-2 font-playfair text-2xl md:text-3xl font-bold text-[#3a2d28]">
                     {category.label}
                   </h3>
-
-                  {visibleCount[category.id] < filteredProducts.length ? (
-                    <button
-                      onClick={() => handleSeeMore(category.id)}
-                      className="px-4 cursor-pointer md:px-6 py-2 text-sm md:text-base bg-primary-coffee text-[#F6ECE1] rounded-full hover:bg-[#3a261a] transition-colors"
-                    >
-                      View All →
-                    </button>
-                  ) : (
-                    ""
-                  )}
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-6">
-                  {filteredProducts
-                    .slice(0, visibleCount[category.id])
-                    .map((product) => (
-                      <ProductCard key={product.id} product={product} />
-                    ))}
+                  {filteredProducts.map((product) => (
+                    <ProductCard key={product.product_id} product={product} />
+                  ))}
                 </div>
               </div>
             );
