@@ -11,10 +11,10 @@ function EmptyMenu({ search }) {
       <h2 className="text-3xl md:text-4xl font-playfair font-bold text-primary-coffee mb-4">
         No Products Found
       </h2>
-      <p className="text-primary-coffeetext-sm md:text-base opacity-80 max-w-md mx-auto leading-relaxed">
-        We explored every corner of our roastery, but couldn't find a match for{" "}
-        <span className="font-bold">"{search}"</span>. Try adjusting your search
-        or explore our collections above.
+      <p className="text-primary-coffee text-sm md:text-base opacity-80 max-w-md mx-auto leading-relaxed">
+        We explored every corner of our roastery, but couldn't find a match for
+        <span className="font-bold"> "{search}"</span>. Try adjusting your
+        search or explore our collections above.
       </p>
     </div>
   );
