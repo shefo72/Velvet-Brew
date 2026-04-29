@@ -1,3 +1,5 @@
+const images = import.meta.glob("../assets/products/*.png", { eager: true });
+
 export const products = [
   {
     id: 1,
@@ -6,7 +8,7 @@ export const products = [
     basePrice: 4.5,
     description:
       "A double shot of our signature house blend with notes of dark chocolate",
-    image: "../../public/products/1.png",
+    image: images["../assets/products/1.png"].default,
     customizations: [
       {
         id: "type",
@@ -25,7 +27,7 @@ export const products = [
     basePrice: 5.5,
     description:
       "Velvety micro-foam poured over a double espresso for a smooth, creamy balance.",
-    image: "../../public/products/2.png",
+    image: images["../assets/products/2.png"].default,
     customizations: [
       {
         id: "size",
@@ -53,7 +55,7 @@ export const products = [
     basePrice: 6.0,
     description:
       "Cold-steeped for 18 hours to achieve a crisp, refreshing, and naturally sweet profile.",
-    image: "../../public/products/3.png",
+    image: images["../assets/products/3.png"].default,
     customizations: [
       {
         id: "sweetener",
@@ -73,7 +75,7 @@ export const products = [
     basePrice: 5.75,
     description:
       "House-made Madagascar vanilla bean syrup blended with organic steamed milk.",
-    image: "../../public/products/4.png",
+    image: images["../assets/products/4.png"].default,
     customizations: [
       {
         id: "size",
@@ -101,7 +103,7 @@ export const products = [
     basePrice: 4.25,
     description:
       "Laminated with premium French butter for 72 hours. Golden, flaky, and airy.",
-    image: "../../public/products/6.png",
+    image: images["../assets/products/5.png"].default,
     customizations: [
       {
         id: "service",
@@ -120,7 +122,7 @@ export const products = [
     basePrice: 5.5,
     description:
       "Twice-baked with almond cream filling and topped with toasted almond flakes.",
-    image: "/images/products/croissant-almond.png",
+    image: images["../assets/products/6.png"].default,
     customizations: [],
   },
   {
@@ -130,7 +132,7 @@ export const products = [
     basePrice: 6.5,
     description:
       "Decadent roasted pistachio ganache filling with a white chocolate drizzle.",
-    image: "../../public/products/7.png",
+    image: images["../assets/products/7.png"].default,
     customizations: [
       {
         id: "topping",
@@ -153,7 +155,7 @@ export const products = [
     basePrice: 12.0,
     description:
       "Crushed avocado, radish, micro-greens, and chili flakes on toasted sourdough.",
-    image: "../../public/products/8.png",
+    image: images["../assets/products/8.png"].default,
     customizations: [
       {
         id: "add-on",
@@ -173,7 +175,7 @@ export const products = [
     basePrice: 14.5,
     description:
       "Premium Norwegian salmon, cream cheese, capers, and dill on rye bread.",
-    image: "../../public/products/9.png",
+    image: images["../assets/products/9.png"].default,
     customizations: [
       {
         id: "bread",
@@ -192,7 +194,7 @@ export const products = [
     basePrice: 13.5,
     description:
       "Wild sautéed mushrooms with white truffle oil and parmesan shavings.",
-    image: "../../public/products/10.png",
+    image: images["../assets/products/10.png"].default,
     customizations: [],
   },
 ];

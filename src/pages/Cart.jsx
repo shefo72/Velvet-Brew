@@ -1,6 +1,8 @@
 import { X, Lock, ArrowRight, Cookie } from "lucide-react";
 import Button from "./../UI/Button";
 
+import Image1 from "../assets/products/1.png";
+import Image2 from "../assets/products/2.png";
 const initialCartItems = [
   {
     id: 1,
@@ -8,7 +10,7 @@ const initialCartItems = [
     details: "Regular, Whole Milk",
     price: 5.5,
     quantity: 1,
-    image: "/products/2.png",
+    image: Image1,
   },
   {
     id: 2,
@@ -16,7 +18,7 @@ const initialCartItems = [
     details: "Warm, House Jam",
     price: 4.25,
     quantity: 1,
-    image: "/products/1.png",
+    image: Image2,
   },
 ];
 

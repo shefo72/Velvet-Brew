@@ -5,6 +5,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+import SignUpImg1 from '../assets/SignUp1.jpg';
+import SignUpImg2 from '../assets/SignUp2.jpg';
 
 export default function SwiperComponent() {
     return <>
@@ -19,7 +21,7 @@ export default function SwiperComponent() {
     >
             <SwiperSlide>
                 <div className="w-full h-screen" style={{
-                        backgroundImage: `url(/coffe2.jpg)`,
+                        backgroundImage: `url(${SignUpImg2})`,
                         backgroundSize: "cover",
                         backgroundPosition:"center"
                 }}>
@@ -37,7 +39,7 @@ export default function SwiperComponent() {
     </SwiperSlide>
             <SwiperSlide>
                 <div className="w-full h-screen" style={{
-                        backgroundImage: `url(/coffe1.jpg)`,
+                        backgroundImage: `url(${SignUpImg1})`,
                         backgroundSize: "cover",
                         backgroundPosition:"center"
                 }}>
@@ -55,7 +57,7 @@ export default function SwiperComponent() {
     </SwiperSlide>
             <SwiperSlide>
                 <div className="w-full h-screen" style={{
-                        backgroundImage: `url(/coffe2.jpg)`,
+                        backgroundImage: `url(${SignUpImg2})`,
                         backgroundSize: "cover",
                         backgroundPosition:"center"
                 }}>
