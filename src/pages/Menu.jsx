@@ -1,45 +1,32 @@
 import { useOutletContext } from "react-router-dom";
-import { products } from "../data/fakeProducts";
-import ProductCard from "../UI/ProductCard";
-
 import { useState } from "react";
+// import { useSelector } from "react-redux";
+
+import { products } from "../data/fakeProducts";
+import ProductCard from "./../components/MenuProductCard";
+import EmptyMenu from "../components/EmptyMenu";
 
 const categories = [
   { id: "allProducts", label: "All Collections" },
-  { id: "section1", label: "Fresh Brews" },
-  { id: "section2", label: "Handmade Croissants" },
-  { id: "section3", label: "Artisanal Toasts" },
-  { id: "section4", label: "Seasonal Specials" },
+  { id: "Fresh Brews", label: "Fresh Brews" },
+  { id: "Handmade Croissants", label: "Handmade Croissants" },
+  { id: "Artisanal Toasts", label: "Artisanal Toasts" },
+  { id: "Seasonal Specials", label: "Seasonal Specials" },
 ];
 
 function Menu() {
   const [active, setActive] = useState("allProducts");
   const { search = "" } = useOutletContext() || {};
-
-  const [visibleCount, setVisibleCount] = useState({
-    allProducts: 4,
-    section1: 4,
-    section2: 4,
-    section3: 4,
-    section4: 4,
-  });
-
-  const handleSeeMore = (section) => {
-    const total =
-      section === "allProducts"
-        ? products.length
-        : products.filter((p) => p.category === section).length;
-
-    setVisibleCount((prev) => ({
-      ...prev,
-      [section]: total,
-    }));
-  };
+  // const products = useSelector((state) => state.products.items);
 
   const scrollToSection = (id) => {
     setActive(id);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
+
+  const MatchingProducts = products.filter((p) =>
+    p.product_name?.toLowerCase().includes(search.toLowerCase()),
+  );
 
   return (
     <div className="min-h-screen w-full bg-[#F5EFE6]">
@@ -75,154 +62,45 @@ function Menu() {
           ))}
         </div>
 
-        {/* Sections */}
-        <div id="allProducts" className="p-4 md:p-10">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="p-2 font-playfair text-2xl md:text-3xl">
-              All Collections
-            </h3>
-            {visibleCount.allProducts < products.length && (
-              <div>
-                <button
-                  onClick={() => handleSeeMore("allProducts")}
-                  className="px-4 md:px-6 py-2 text-sm md:text-base bg-primary-coffee text-[#F6ECE1] rounded-full hover:bg-[#F5F5F4] hover:text-primary-coffee "
-                >
-                  View All →
-                </button>
-              </div>
-            )}
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-2 md:px-4 py-6">
-            {products
-              .filter((p) =>
-                p.title?.toLowerCase().includes(search.toLowerCase()),
-              )
-              .slice(0, visibleCount.allProducts)
-              .map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-          </div>
-        </div>
+        {MatchingProducts.length === 0 ? (
+          <EmptyMenu search={search} />
+        ) : (
+          categories.map((category) => {
+            const filteredProducts = products.filter((p) => {
+              const matchesSearch = p.product_name
+                ?.toLowerCase()
+                .includes(search.toLowerCase());
 
-        <div id="section1" className="p-4 md:p-10">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="p-2 font-playfair text-2xl md:text-3xl">
-              Fresh Brews
-            </h3>
-            {visibleCount.section1 < products.length && (
-              <div>
-                <button
-                  onClick={() => handleSeeMore("section1")}
-                  className="px-4 md:px-6 py-2 text-sm md:text-base bg-primary-coffee text-[#F6ECE1] rounded-full hover:bg-[#F5F5F4] hover:text-primary-coffee "
-                >
-                  View All →
-                </button>
-              </div>
-            )}
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-2 md:px-4 py-6">
-            {products
-              .filter(
-                (p) =>
-                  p.category === "section1" &&
-                  p.title?.toLowerCase().includes(search.toLowerCase()),
-              )
-              .slice(0, visibleCount.section1)
-              .map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-          </div>
-        </div>
+              const matchesCategory =
+                category.id === "allProducts" ||
+                p.category_name === category.id;
 
-        <div id="section2" className="p-4 md:p-10">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="p-2 font-playfair text-2xl md:text-3xl">
-              Handmade Croissants
-            </h3>
-            {visibleCount.section2 < products.length && (
-              <div>
-                <button
-                  onClick={() => handleSeeMore("section2")}
-                  className="px-4 md:px-6 py-2 text-sm md:text-base bg-primary-coffee text-[#F6ECE1] rounded-full hover:bg-[#F5F5F4] hover:text-primary-coffee "
-                >
-                  View All →
-                </button>
-              </div>
-            )}
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-2 md:px-4 py-6">
-            {products
-              .filter(
-                (p) =>
-                  p.category === "section2" &&
-                  p.title?.toLowerCase().includes(search.toLowerCase()),
-              )
-              .slice(0, visibleCount.section2)
-              .map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-          </div>
-        </div>
+              return matchesSearch && matchesCategory;
+            });
 
-        <div id="section3" className="p-4 md:p-10">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="p-2 font-playfair text-2xl md:text-3xl">
-              Artisanal Toasts
-            </h3>
-            {visibleCount.section3 < products.length && (
-              <div>
-                <button
-                  onClick={() => handleSeeMore("section3")}
-                  className="px-4 md:px-6 py-2 text-sm md:text-base bg-primary-coffee text-[#F6ECE1] rounded-full hover:bg-[#F5F5F4] hover:text-primary-coffee "
-                >
-                  View All →
-                </button>
-              </div>
-            )}
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-2 md:px-4 py-6">
-            {products
-              .filter(
-                (p) =>
-                  p.category === "section3" &&
-                  p.title?.toLowerCase().includes(search.toLowerCase()),
-              )
-              .slice(0, visibleCount.section3)
-              .map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-          </div>
-        </div>
+            if (filteredProducts.length === 0) return null;
 
-        <div id="section4" className="p-4 md:p-10">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="p-2 font-playfair text-2xl md:text-3xl">
-              Seasonal Specials
-            </h3>
-            {visibleCount.section4 < products.length && (
-              <div>
-                <button
-                  onClick={() => handleSeeMore("section4")}
-                  className="px-4 md:px-6 py-2 text-sm md:text-base bg-primary-coffee text-[#F6ECE1] rounded-full hover:bg-[#F5F5F4] hover:text-primary-coffee "
-                >
-                  View All →
-                </button>
+            return (
+              <div
+                key={category.id}
+                id={category.id}
+                className="p-4 md:p-10 scroll-mt-24"
+              >
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="p-2 font-playfair text-2xl md:text-3xl font-bold text-[#3a2d28]">
+                    {category.label}
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-6">
+                  {filteredProducts.map((product) => (
+                    <ProductCard key={product.product_id} product={product} />
+                  ))}
+                </div>
               </div>
-            )}
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-2 md:px-4 py-6">
-            {products
-              .filter(
-                (p) =>
-                  p.category === "section4" &&
-                  p.title?.toLowerCase().includes(search.toLowerCase()),
-              )
-              .slice(0, visibleCount.section4)
-              .map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-          </div>
-        </div>
+            );
+          })
+        )}
       </div>
     </div>
   );

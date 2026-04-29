@@ -1,4 +1,7 @@
 import { Microscope, Users, Award } from "lucide-react";
+import FeaturesSection1 from "../assets/FeaturesSection1.jpg";
+import FeaturesSection2 from "../assets/FeaturesSection2.jpg";
+import FeaturesSection3 from "../assets/FeaturesSection3.jpg";
 
 const featuresData = [
   {
@@ -6,7 +9,7 @@ const featuresData = [
     title: "Scientific Roast",
     description:
       "Every batch is temperature-profiled to unlock the hidden molecular flavors unique to the bean's origin.",
-    image: "/FeaturesSection1.jpg",
+    image: FeaturesSection1,
     Icon: Microscope,
   },
   {
@@ -14,7 +17,7 @@ const featuresData = [
     title: "Master Baristas",
     description:
       "Our team doesn't just make coffee; they study it. Every barista undergoes 200 hours of sensorial training.",
-    image: "/FeaturesSection3.jpg",
+    image: FeaturesSection2,
     Icon: Users,
   },
   {
@@ -22,7 +25,7 @@ const featuresData = [
     title: "Ethical Direct-Trade",
     description:
       "We bypass middle-men to pay farmers 40% above fair-trade prices, ensuring the legacy of the land continues.",
-    image: "/FeaturesSection2.jpg",
+    image: FeaturesSection2,
     Icon: Award,
   },
 ];

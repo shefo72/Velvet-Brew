@@ -23,7 +23,7 @@ const testimonials = [
   {
     id: 3,
     testimonial:
-      "It is, I assure you, a matter of simple observation to recognize the exceptional caliber of these roasted beans. The precision in brewing, combined with the nuanced complexity of flavor, leaves no room for doubt—one is clearly in the presence of a most accomplished barista.",
+      "It takes only a sip to recognize the exceptional quality of these beans—precisely brewed, rich in flavor, and crafted by a truly skilled barista",
     author: "Sherlock Holmes",
     role: "Detective",
   },
@@ -37,7 +37,7 @@ const testimonials = [
   {
     id: 5,
     testimonial:
-      "Every detail in this establishment is orchestrated with absolute precision and grand vision. The complex layers of flavor in their signature espresso create an incredibly immersive and unforgettable morning coffee experience.",
+      "Every detail in this establishment is orchestrated with absolute precision and grand vision. The complex layers of flavor in their signature espresso.",
     author: "Christopher Nolan",
     role: "Film Director",
   },
@@ -101,7 +101,7 @@ export default function TestimonialSection() {
         >
           {testimonials.map((item) => (
             <SwiperSlide key={item.id}>
-              <div className="flex flex-col pb-20 items-center justify-center text-center">
+              <div className="flex flex-col pb-12  lg:pb-15  items-center justify-center text-center">
                 <Quote
                   className="text-primary-coffee mb-6 "
                   size={32}

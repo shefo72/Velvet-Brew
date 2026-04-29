@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { Search, ShoppingCart, Menu, X } from "lucide-react";
+import { useSelector } from "react-redux";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -11,6 +12,8 @@ const navLinks = [
 
 function Header({ search, setSearch }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const itemsNumber = useSelector((state) => state.cart.items).length;
+  const loactionPath = useLocation().pathname;
 
   return (
     <nav className="bg-[#F9EFE7F5] py-4 px-6 md:px-12 lg:px-24  border-b border-gray-200/25">
@@ -41,20 +44,22 @@ function Header({ search, setSearch }) {
         </div>
 
         <div className="flex items-center gap-5 md:gap-6 ">
-          <div className="hidden sm:flex relative items-center">
-            <Search
-              className="absolute left-3 text-[#141B34]"
-              size={16}
-              strokeWidth={2}
-            />
-            <input
-              type="text"
-              placeholder="Search menu..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="bg-[#FFFFFF54] text-primary-coffee placeholder:text-muted-coffee border border-primary-coffee/25  rounded-full py-2 pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary-coffee/30 w-48 lg:w-64 transition-all"
-            />
-          </div>
+          {loactionPath === "/menu" && (
+            <div className="hidden sm:flex relative items-center">
+              <Search
+                className="absolute left-3 text-[#141B34]"
+                size={16}
+                strokeWidth={2}
+              />
+              <input
+                type="text"
+                placeholder="Search menu..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="bg-[#FFFFFF54] text-primary-coffee placeholder:text-muted-coffee border border-primary-coffee/25  rounded-full py-2 pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary-coffee/30 w-48 lg:w-64 transition-all"
+              />
+            </div>
+          )}
 
           <NavLink
             to="/cart"
@@ -62,13 +67,15 @@ function Header({ search, setSearch }) {
             aria-label="Cart"
           >
             <ShoppingCart size={22} />
-            <span className="absolute -top-1.5 -right-1.5 bg-primary-coffee text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
-              2
-            </span>
+            {itemsNumber > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 bg-primary-coffee text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
+                {itemsNumber}
+              </span>
+            )}
           </NavLink>
 
           <button
-            className="md:hidden text-primary-coffee hover:text-coffee-hover transition-colors"
+            className="md:hidden cursor-pointer text-primary-coffee hover:text-coffee-hover transition-colors"
             onClick={() => setIsMobileMenuOpen(true)}
           >
             <Menu size={26} strokeWidth={2.5} />
@@ -101,21 +108,23 @@ function Header({ search, setSearch }) {
             </button>
           </div>
 
-          <div className="relative items-center mb-8 sm:hidden">
-            <Search
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-coffee"
-              size={18}
-            />
-            <input
-              search={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-              }}
-              type="text"
-              placeholder="Search For Products"
-              className="bg-[#FFFFFF54] w-full rounded-full py-3 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary-coffee/30"
-            />
-          </div>
+          {loactionPath === "/menu" && (
+            <div className="relative items-center mb-8 sm:hidden">
+              <Search
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-coffee"
+                size={18}
+              />
+              <input
+                search={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                }}
+                type="text"
+                placeholder="Search For Products"
+                className="bg-[#FFFFFF54] w-full rounded-full py-3 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary-coffee/30"
+              />
+            </div>
+          )}
 
           <div className="flex flex-col gap-6">
             {navLinks.map((link) => (

@@ -1,198 +1,94 @@
+const images = import.meta.glob("../assets/products/*.png", { eager: true });
+
 export const products = [
   {
-    id: 1,
-    category: "section4",
-    title: "Espresso",
-    basePrice: 4.5,
-    description:
-      "A double shot of our signature house blend with notes of dark chocolate",
-    image: "../../public/products/1.png",
-    customizations: [
-      {
-        id: "type",
-        label: "Select Roast",
-        options: [
-          { value: "house", label: "House Blend", extraPrice: 0 },
-          { value: "single-origin", label: "Single Origin", extraPrice: 1.0 },
-        ],
-      },
-    ],
+    product_id: 1,
+    product_name: "Espresso",
+    category_name: "Fresh Brews",
+    base_price: 4.5,
+    image_url: images["../assets/products/1.png"].default,
+    rating: 4.8,
+    badge: "Bestseller",
   },
   {
-    id: 2,
-    category: "section4",
-    title: "Flat White",
-    basePrice: 5.5,
-    description:
-      "Velvety micro-foam poured over a double espresso for a smooth, creamy balance.",
-    image: "../../public/products/2.png",
-    customizations: [
-      {
-        id: "size",
-        label: "Select Size",
-        options: [
-          { value: "regular", label: "Regular", extraPrice: 0 },
-          { value: "large", label: "Large", extraPrice: 0.75 },
-        ],
-      },
-      {
-        id: "milk",
-        label: "Milk Preferences",
-        options: [
-          { id: "m1", label: "Whole Milk", extraPrice: 0 },
-          { id: "m2", label: "Oat Milk", extraPrice: 0.75 },
-          { id: "m3", label: "Almond Milk", extraPrice: 0.75 },
-        ],
-      },
-    ],
+    product_id: 2,
+    product_name: "Flat White",
+    category_name: "Fresh Brews",
+    base_price: 5.5,
+    image_url: images["../assets/products/2.png"].default,
+    rating: 4.9,
+    badge: null,
   },
   {
-    id: 3,
-    category: "section4",
-    title: "Slow-Drip Cold Brew",
-    basePrice: 6.0,
-    description:
-      "Cold-steeped for 18 hours to achieve a crisp, refreshing, and naturally sweet profile.",
-    image: "../../public/products/3.png",
-    customizations: [
-      {
-        id: "sweetener",
-        label: "Sweetener",
-        options: [
-          { value: "none", label: "None", extraPrice: 0 },
-          { value: "vanilla", label: "Vanilla Syrup", extraPrice: 0.5 },
-          { value: "caramel", label: "Caramel Syrup", extraPrice: 0.5 },
-        ],
-      },
-    ],
+    product_id: 3,
+    product_name: "Slow-Drip Cold Brew",
+    category_name: "Fresh Brews",
+    base_price: 6.0,
+    image_url: images["../assets/products/3.png"].default,
+    rating: 4.7,
+    badge: "Bestseller",
   },
   {
-    id: 4,
-    category: "section3",
-    title: "Vanilla Latte",
-    basePrice: 5.75,
-    description:
-      "House-made Madagascar vanilla bean syrup blended with organic steamed milk.",
-    image: "../../public/products/4.png",
-    customizations: [
-      {
-        id: "size",
-        label: "Select Size",
-        options: [
-          { value: "small", label: "Small", extraPrice: 0 },
-          { value: "regular", label: "Regular", extraPrice: 0.5 },
-          { value: "large", label: "Large", extraPrice: 1.0 },
-        ],
-      },
-      {
-        id: "temperature",
-        label: "Temperature",
-        options: [
-          { value: "hot", label: "Hot", extraPrice: 0 },
-          { value: "iced", label: "Iced", extraPrice: 0.25 },
-        ],
-      },
-    ],
+    product_id: 4,
+    product_name: "Vanilla Latte",
+    category_name: "Seasonal Specials",
+    base_price: 5.75,
+    image_url: images["../assets/products/4.png"].default,
+    rating: 4.6,
+    badge: "New",
   },
   {
-    id: 5,
-    category: "section3",
-    title: "Classic Butter Croissant",
-    basePrice: 4.25,
-    description:
-      "Laminated with premium French butter for 72 hours. Golden, flaky, and airy.",
-    image: "../../public/products/6.png",
-    customizations: [
-      {
-        id: "service",
-        label: "Serving Preference",
-        options: [
-          { value: "cold", label: "As is", extraPrice: 0 },
-          { value: "warmed", label: "Warmed", extraPrice: 0 },
-        ],
-      },
-    ],
+    product_id: 5,
+    product_name: "Classic Butter Croissant",
+    category_name: "Handmade Croissants",
+    base_price: 4.25,
+    image_url: images["../assets/products/5.png"].default,
+    rating: 4.8,
+    badge: "Bestseller",
   },
   {
-    id: 6,
-    category: "section3",
-    title: "Almond Croissant",
-    basePrice: 5.5,
-    description:
-      "Twice-baked with almond cream filling and topped with toasted almond flakes.",
-    image: "/images/products/croissant-almond.png",
-    customizations: [],
+    product_id: 6,
+    product_name: "Almond Croissant",
+    category_name: "Handmade Croissants",
+    base_price: 5.5,
+    image_url: images["../assets/products/6.png"].default,
+    rating: 4.9,
+    badge: null,
   },
   {
-    id: 7,
-    category: "section2",
-    title: "Pistachio Ganache Tart",
-    basePrice: 6.5,
-    description:
-      "Decadent roasted pistachio ganache filling with a white chocolate drizzle.",
-    image: "../../public/products/7.png",
-    customizations: [
-      {
-        id: "topping",
-        label: "Extra Topping",
-        options: [
-          { value: "none", label: "None", extraPrice: 0 },
-          {
-            value: "crushed-nuts",
-            label: "Crushed Pistachios",
-            extraPrice: 0.5,
-          },
-        ],
-      },
-    ],
+    product_id: 7,
+    product_name: "Pistachio Ganache Tart",
+    category_name: "Seasonal Specials",
+    base_price: 6.5,
+    image_url: images["../assets/products/7.png"].default,
+    rating: 4.7,
+    badge: "Limited",
   },
   {
-    id: 8,
-    category: "section2",
-    title: "Avocado Sourdough Toast",
-    basePrice: 12.0,
-    description:
-      "Crushed avocado, radish, micro-greens, and chili flakes on toasted sourdough.",
-    image: "../../public/products/8.png",
-    customizations: [
-      {
-        id: "add-on",
-        label: "Add Protein",
-        options: [
-          { value: "none", label: "None", extraPrice: 0 },
-          { value: "egg", label: "Poached Egg", extraPrice: 2.0 },
-          { value: "salmon", label: "Smoked Salmon", extraPrice: 4.5 },
-        ],
-      },
-    ],
+    product_id: 8,
+    product_name: "Avocado Sourdough Toast",
+    category_name: "Artisanal Toasts",
+    base_price: 12.0,
+    image_url: images["../assets/products/8.png"].default,
+    rating: 4.5,
+    badge: null,
   },
   {
-    id: 9,
-    category: "section1",
-    title: "Smoked Salmon Toast",
-    basePrice: 14.5,
-    description:
-      "Premium Norwegian salmon, cream cheese, capers, and dill on rye bread.",
-    image: "../../public/products/9.png",
-    customizations: [
-      {
-        id: "bread",
-        label: "Bread Choice",
-        options: [
-          { value: "rye", label: "Rye Bread", extraPrice: 0 },
-          { value: "gluten-free", label: "Gluten-Free", extraPrice: 1.5 },
-        ],
-      },
-    ],
+    product_id: 9,
+    product_name: "Smoked Salmon Toast",
+    category_name: "Artisanal Toasts",
+    base_price: 14.5,
+    image_url: images["../assets/products/9.png"].default,
+    rating: 4.9,
+    badge: "Bestseller",
   },
   {
-    id: 10,
-    category: "section1",
-    title: "Mushroom & Truffle Toast",
-    basePrice: 13.5,
-    description:
-      "Wild sautéed mushrooms with white truffle oil and parmesan shavings.",
-    image: "../../public/products/10.png",
-    customizations: [],
+    product_id: 10,
+    product_name: "Mushroom & Truffle Toast",
+    category_name: "Artisanal Toasts",
+    base_price: 13.5,
+    image_url: images["../assets/products/10.png"].default,
+    rating: 4.8,
+    badge: "New",
   },
 ];
