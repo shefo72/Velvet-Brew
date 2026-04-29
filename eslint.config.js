@@ -23,6 +23,8 @@ export default defineConfig([
       },
     },
     rules: {
+      "import/no-unresolved": "error",
+      "import/no-case-declarations": "error",
       "no-unused-vars": ["warn", { varsIgnorePattern: "^[A-Z_]" }],
     },
   },
