@@ -3,7 +3,7 @@ import { useState } from "react";
 // import { useSelector } from "react-redux";
 
 import { products } from "../data/fakeProducts";
-import ProductCard from "./../components/MenuProductCard";
+import ProductCard from "../components/MenuProductCard";
 import EmptyMenu from "../components/EmptyMenu";
 
 const categories = [
