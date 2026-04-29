@@ -3,7 +3,7 @@ import { useState } from "react";
 // import { useSelector } from "react-redux";
 
 import { products } from "../data/fakeProducts";
-import ProductCard from "../components/MenuProductCard";
+import MenuProductCard from "./../components/MenuProductCard";
 import EmptyMenu from "../components/EmptyMenu";
 
 const categories = [
@@ -94,7 +94,10 @@ function Menu() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-6">
                   {filteredProducts.map((product) => (
-                    <ProductCard key={product.product_id} product={product} />
+                    <MenuProductCard
+                      key={product.product_id}
+                      product={product}
+                    />
                   ))}
                 </div>
               </div>
