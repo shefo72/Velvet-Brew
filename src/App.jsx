@@ -1,20 +1,31 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
-import { useState } from "react";
+import { lazy, useState, Suspense } from "react";
 
 import AppLayout from "./UI/AppLayout";
 import Home from "./pages/Home";
-import SignUp from "./pages/SignUp";
-import Login from "./pages/Login";
-import Cart from "./pages/Cart";
 import ErrorPage from "./pages/ErrorPage";
-import Dashboard from "./pages/Dashboard";
-import OrderConfirmation from "./pages/OrderConfirmation";
-import Details from "./pages/Details";
-import Menu from "./pages/Menu";
-import Contact from "./pages/Contact";
+import FullPageSpinner from "./UI/FullPageSpinner";
+
+const SignUp = lazy(() => import("./pages/SignUp"));
+const Login = lazy(() => import("./pages/Login"));
+const Cart = lazy(() => import("./pages/Cart"));
+const OrderConfirmation = lazy(() => import("./pages/OrderConfirmation"));
+const Details = lazy(() => import("./pages/Details"));
+const Menu = lazy(() => import("./pages/Menu"));
+const Contact = lazy(() => import("./pages/Contact"));
+
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const DashboardInventory = lazy(
+  () => import("./components/DashboardInventory"),
+);
+const DashboardOverview = lazy(() => import("./components/DashboardOverview"));
 
 function App() {
   const [search, setSearch] = useState("");
@@ -48,7 +59,19 @@ function App() {
         },
       ],
     },
-    { path: "/dashboard", element: <Dashboard /> },
+    {
+      path: "/dashboard",
+      element: (
+        <Suspense fallback={<FullPageSpinner />}>
+          <Dashboard />
+        </Suspense>
+      ),
+      children: [
+        { index: true, element: <Navigate replace to="overview" /> },
+        { path: "overview", element: <DashboardOverview /> },
+        { path: "inventory", element: <DashboardInventory /> },
+      ],
+    },
   ]);
 
   return (

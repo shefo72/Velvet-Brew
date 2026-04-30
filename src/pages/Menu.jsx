@@ -1,3 +1,4 @@
+import React from "react";
 import { useOutletContext } from "react-router-dom";
 import { useState } from "react";
 // import { useSelector } from "react-redux";
@@ -95,7 +96,7 @@ function Menu() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-6">
                   {filteredProducts.map((product) => (
                     <MenuProductCard
-                      key={product.product_id}
+                      key={`${category.id}-${product.product_id}`}
                       product={product}
                     />
                   ))}
@@ -109,4 +110,4 @@ function Menu() {
   );
 }
 
-export default Menu;
+export default React.memo(Menu);

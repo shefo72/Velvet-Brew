@@ -1,4 +1,6 @@
-export default function RecentOrders({ orders }) {
+import { memo } from "react";
+
+const RecentOrders = memo(function RecentOrders({ orders }) {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-secondary-coffee ">
       <div className="flex items-center justify-between px-6 py-4 border-b border-secondary-coffee">
@@ -41,7 +43,13 @@ export default function RecentOrders({ orders }) {
                 </td>
                 <td className="px-6 py-4">
                   <span
-                    className={`text-xs font-semibold px-2.5 py-1 rounded-full ${order.status === "Roasting" ? "bg-amber-100 text-amber-800" : order.status === "In Route" ? "bg-blue-100 text-blue-800" : "bg-emerald-100 text-emerald-800"}`}
+                    className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
+                      order.status === "Roasting"
+                        ? "bg-amber-100 text-amber-800"
+                        : order.status === "In Route"
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-emerald-100 text-emerald-800"
+                    }`}
                   >
                     {order.status}
                   </span>
@@ -56,4 +64,6 @@ export default function RecentOrders({ orders }) {
       </div>
     </div>
   );
-}
+});
+
+export default RecentOrders;

@@ -1,5 +1,4 @@
-import heroCoffeeBg from "../assets/heroCoffeeBg.avif";
-import HeroSectionImage from "../assets/HeroSectionImage.jpg";
+import HeroSectionImage from "../assets/HeroSectionImage.webp";
 import Button from "./../UI/Button";
 import { scrollToSection } from "./../utils/helpers";
 
@@ -8,7 +7,7 @@ function HeroSection() {
     <section className=" font-serif relative w-full flex items-center justify-center flex-1 px-6 lg:px-20 py-16   pt-50 pb-50 md:pb-30 md:pt-25">
       <div
         className="absolute inset-0 lg:-left-50 w-full h-[130%] opacity-20 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroCoffeeBg})` }}
+        style={{ backgroundImage: "url('/heroCoffeeBg.avif')" }}
       ></div>
 
       <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 z-10">
