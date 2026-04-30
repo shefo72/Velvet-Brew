@@ -1,10 +1,16 @@
 import { Search, Bell, Settings, Menu, Home } from "lucide-react";
 import { Link } from "react-router-dom";
 
-function Topbar() {
+function Topbar({ onMenuClick }) {
   return (
     <header className="h-16 border-b-2 bg-[#FFF8F2] border-[#e7e5e4] flex items-center justify-between px-6 gap-4 sticky top-0 z-10">
       <div className="flex items-center gap-3">
+        <button
+          onClick={onMenuClick}
+          className="lg:hidden cursor-pointer p-2 rounded-lg text-[#57534E] hover:bg-[#F5EFE6] transition-colors"
+        >
+          <Menu size={20} />
+        </button>
         <span className="text-sm md:text-lg font-bold text-primary-coffee">
           Admin
         </span>
