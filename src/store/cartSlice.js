@@ -1,34 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  // items: [
-  //   {
-  //     product_id: 1,
-  //     product_name: "Espresso",
-  //     category_name: "Fresh Brews",
-  //     base_price: 4.5,
-  //     image_url: "/src/assets/products/1.png",
-  //     rating: 4.8,
-  //     badge: "Bestseller",
-  //     quantity: 1,
-  //     totalPrice: 4.5,
-  //   },
-  //   {
-  //     product_id: 2,
-  //     product_name: "Flat White",
-  //     category_name: "Fresh Brews",
-  //     base_price: 5.5,
-  //     image_url: "/src/assets/products/2.png",
-  //     rating: 4.9,
-  //     badge: null,
-  //     quantity: 1,
-  //     totalPrice: 5.5,
-  //   },
-  // ],
-  items: [],
-  totalQuantity: 2,
-  totalAmount: 10,
-};
+const initialState = { items: [], totalQuantity: 0, totalAmount: 0 };
 
 const cartSlice = createSlice({
   name: "cart",
@@ -41,17 +13,17 @@ const cartSlice = createSlice({
       );
 
       state.totalQuantity++;
-      state.totalAmount += newItem.base_price;
+      state.totalAmount += newItem.price;
 
       if (!existingItem) {
         state.items.push({
           ...newItem,
           quantity: 1,
-          totalPrice: newItem.base_price,
+          totalPrice: newItem.price,
         });
       } else {
         existingItem.quantity++;
-        existingItem.totalPrice += newItem.base_price;
+        existingItem.totalPrice += newItem.price;
       }
     },
 
@@ -61,7 +33,7 @@ const cartSlice = createSlice({
 
       existingItem.quantity++;
       state.totalQuantity++;
-      state.totalAmount += existingItem.base_price;
+      state.totalAmount += existingItem.price;
     },
 
     decrementQuantity(state, action) {
@@ -70,13 +42,13 @@ const cartSlice = createSlice({
 
       if (existingItem) {
         state.totalQuantity--;
-        state.totalAmount -= existingItem.base_price;
+        state.totalAmount -= existingItem.price;
 
         if (existingItem.quantity === 1) {
           state.items = state.items.filter((item) => item.product_id !== id);
         } else {
           existingItem.quantity--;
-          existingItem.totalPrice -= existingItem.base_price;
+          existingItem.totalPrice -= existingItem.price;
         }
       }
     },

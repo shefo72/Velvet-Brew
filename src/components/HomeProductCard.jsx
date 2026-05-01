@@ -5,14 +5,14 @@ import toast from "react-hot-toast";
 import { formatCurrency } from "../utils/helpers";
 
 export default function ProductCard({ product }) {
-  const { image_url, product_name, base_price } = product;
+  const { image_url, product_name, price, description } = product;
   const dispatch = useDispatch();
 
   function handleAdd(product) {
     const itemToAdd = {
       ...product,
       quantity: 1,
-      totalPrice: product.base_price,
+      totalPrice: product.price,
     };
 
     dispatch({ type: "cart/addToCart", payload: itemToAdd });
@@ -39,14 +39,12 @@ export default function ProductCard({ product }) {
         </h3>
 
         <p className="text-sm text-[#50453E] leading-relaxed line-clamp-2 mb-6 min-h-12">
-          {/* {description} */}
-          Velvety micro-foam poured over a double ristretto for a smooth, creamy
-          balance.
+          {description}
         </p>
 
         <div className="mt-auto flex items-center justify-between">
           <span className="font-bold text-lg text-primary-coffee">
-            {formatCurrency(base_price)}
+            {formatCurrency(price)}
           </span>
           <button
             onClick={() => {

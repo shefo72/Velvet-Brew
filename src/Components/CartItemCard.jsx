@@ -5,7 +5,8 @@ import { X } from "lucide-react";
 import { formatCurrency } from "../utils/helpers";
 
 function CartItemCard({ item }) {
-  const { product_id, image_url, product_name, base_price, quantity } = item;
+  const { product_id, product_name, image_url, price, description, quantity } =
+    item;
   const dispatch = useDispatch();
 
   function handleInc(product_id) {
@@ -60,8 +61,7 @@ function CartItemCard({ item }) {
                 {product_name}
               </h3>
               <p className="text-xs md:text-sm text-gray-500 mt-1">
-                Velvety micro-foam poured over a double ristretto for a smooth,
-                creamy balance.
+                {description}
               </p>
             </div>
             <button
@@ -98,7 +98,7 @@ function CartItemCard({ item }) {
             </div>
 
             <span className="font-bold text-primary-coffee">
-              {formatCurrency(base_price)}
+              {formatCurrency(price)}
             </span>
           </div>
         </div>

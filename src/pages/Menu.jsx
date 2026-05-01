@@ -1,33 +1,39 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import { useState } from "react";
-// import { useSelector } from "react-redux";
+import { useProducts } from "../hooks/useProducts";
 
-import { products } from "../data/fakeProducts";
 import MenuProductCard from "./../components/MenuProductCard";
 import EmptyMenu from "../components/EmptyMenu";
-
-const categories = [
-  { id: "allProducts", label: "All Collections" },
-  { id: "Fresh Brews", label: "Fresh Brews" },
-  { id: "Handmade Croissants", label: "Handmade Croissants" },
-  { id: "Artisanal Toasts", label: "Artisanal Toasts" },
-  { id: "Seasonal Specials", label: "Seasonal Specials" },
-];
+import FullPageSpinner from "./../UI/FullPageSpinner";
+import QueryError from "../UI/QueryError";
+import { capitalizeFirstLetter } from "../utils/helpers";
 
 function Menu() {
-  const [active, setActive] = useState("allProducts");
+  const {
+    data: productData,
+    allProducts,
+    categories,
+    isLoading,
+    error,
+  } = useProducts();
   const { search = "" } = useOutletContext() || {};
-  // const products = useSelector((state) => state.products.items);
+  const [active, setActive] = useState(0);
 
   const scrollToSection = (id) => {
     setActive(id);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    document
+      .getElementById(id)
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const MatchingProducts = products.filter((p) =>
-    p.product_name?.toLowerCase().includes(search.toLowerCase()),
-  );
+  const MatchingProducts = useMemo(() => {
+    return allProducts.filter((p) =>
+      p.product_name?.toLowerCase().includes(search.toLowerCase()),
+    );
+  }, [allProducts, search]);
+
+  if (isLoading) return <FullPageSpinner />;
+  if (error) return <QueryError error={error} />;
 
   return (
     <div className="min-h-screen w-full bg-[#F5EFE6]">
@@ -63,48 +69,51 @@ function Menu() {
           ))}
         </div>
 
-        {MatchingProducts.length === 0 ? (
-          <EmptyMenu search={search} />
-        ) : (
-          categories.map((category) => {
-            const filteredProducts = products.filter((p) => {
-              const matchesSearch = p.product_name
-                ?.toLowerCase()
-                .includes(search.toLowerCase());
+        <div>
+          {MatchingProducts.length === 0 ? (
+            <EmptyMenu search={search} />
+          ) : (
+            <>
+              {/* render items in each  collection*/}
+              {productData?.data.map((collection, index) => {
+                const categoryId = index;
+                const categoryLabel = capitalizeFirstLetter(
+                  collection.collection_name,
+                );
 
-              const matchesCategory =
-                category.id === "allProducts" ||
-                p.category_name === category.id;
+                // filter products in each collection based on search query
+                const filteredProducts = collection.products.filter((p) =>
+                  p.product_name?.toLowerCase().includes(search.toLowerCase()),
+                );
 
-              return matchesSearch && matchesCategory;
-            });
+                if (filteredProducts.length === 0) return null;
 
-            if (filteredProducts.length === 0) return null;
+                return (
+                  <div
+                    key={categoryId}
+                    id={categoryId}
+                    className="p-4 md:p-10 scroll-mt-24"
+                  >
+                    <div className="flex justify-between items-center mb-4">
+                      <h3 className="p-2 font-playfair text-2xl md:text-3xl font-bold text-[#3a2d28]">
+                        {categoryLabel}
+                      </h3>
+                    </div>
 
-            return (
-              <div
-                key={category.id}
-                id={category.id}
-                className="p-4 md:p-10 scroll-mt-24"
-              >
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="p-2 font-playfair text-2xl md:text-3xl font-bold text-[#3a2d28]">
-                    {category.label}
-                  </h3>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-6">
-                  {filteredProducts.map((product) => (
-                    <MenuProductCard
-                      key={`${category.id}-${product.product_id}`}
-                      product={product}
-                    />
-                  ))}
-                </div>
-              </div>
-            );
-          })
-        )}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-6">
+                      {filteredProducts.map((product) => (
+                        <MenuProductCard
+                          key={product.product_id}
+                          product={product}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
