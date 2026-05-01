@@ -1,9 +1,10 @@
-import { LayoutDashboard, Package } from "lucide-react";
+import { LayoutDashboard, Package, Warehouse } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Overview", path: "/dashboard/overview" },
   { icon: Package, label: "Products", path: "/dashboard/products" },
+  { icon: Warehouse, label: "Inventory", path: "/dashboard/inventory" },
 ];
 
 export default function Sidebar({ mobileOpen, onClose }) {

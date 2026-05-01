@@ -1,4 +1,4 @@
-import { Search, Bell, Settings, Menu, Home } from "lucide-react";
+import { Bell, Settings, Menu, Home } from "lucide-react";
 import { Link } from "react-router-dom";
 
 function Topbar({ onMenuClick }) {

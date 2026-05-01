@@ -22,7 +22,7 @@ const Menu = lazy(() => import("./pages/Menu"));
 const DashboardLayout = lazy(() => import("./UI/DashboardLayout"));
 const DashboardProducts = lazy(() => import("./pages/DashboardProducts"));
 const DashboardOverview = lazy(() => import("./pages/DashboardOverView"));
-// const DashboardInventory = lazy(() => import("./pages/DashboardInventory"));
+const DashboardInventory = lazy(() => import("./pages/DashboardInventory"));
 
 function App() {
   const [search, setSearch] = useState("");
@@ -62,7 +62,7 @@ function App() {
         { index: true, element: <Navigate replace to="overview" /> },
         { path: "overview", element: <DashboardOverview /> },
         { path: "products", element: <DashboardProducts /> },
-        // { path: "inventory", element: <DashboardInventory /> },
+        { path: "inventory", element: <DashboardInventory /> },
       ],
     },
   ]);

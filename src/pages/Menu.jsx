@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useRef } from "react";
 import { useOutletContext } from "react-router-dom";
 import { useProducts } from "../hooks/useProducts";
 
@@ -9,28 +9,41 @@ import QueryError from "../UI/QueryError";
 import { capitalizeFirstLetter } from "../utils/helpers";
 
 function Menu() {
-  const {
-    data: productData,
-    allProducts,
-    categories,
-    isLoading,
-    error,
-  } = useProducts();
+  const { data: productData, categories, isLoading, error } = useProducts();
+
   const { search = "" } = useOutletContext() || {};
   const [active, setActive] = useState(0);
 
+  const sectionRefs = useRef({});
+
   const scrollToSection = (id) => {
     setActive(id);
-    document
-      .getElementById(id)
-      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    sectionRefs.current[id]?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
-  const MatchingProducts = useMemo(() => {
-    return allProducts.filter((p) =>
-      p.product_name?.toLowerCase().includes(search.toLowerCase()),
-    );
-  }, [allProducts, search]);
+  const filteredCollections = useMemo(() => {
+    if (!productData?.data) return [];
+
+    const lowerSearch = search.toLowerCase();
+
+    return productData.data
+      .map((collection, index) => {
+        const filteredProducts = collection.products.filter((p) =>
+          p.product_name?.toLowerCase().includes(lowerSearch),
+        );
+
+        return {
+          ...collection,
+          categoryId: index,
+          categoryLabel: capitalizeFirstLetter(collection.collection_name),
+          filteredProducts,
+        };
+      })
+      .filter((collection) => collection.filteredProducts.length > 0);
+  }, [productData?.data, search]);
 
   if (isLoading) return <FullPageSpinner />;
   if (error) return <QueryError error={error} />;
@@ -70,47 +83,34 @@ function Menu() {
         </div>
 
         <div>
-          {MatchingProducts.length === 0 ? (
+          {filteredCollections.length === 0 ? (
             <EmptyMenu search={search} />
           ) : (
             <>
-              {/* render items in each  collection*/}
-              {productData?.data.map((collection, index) => {
-                const categoryId = index;
-                const categoryLabel = capitalizeFirstLetter(
-                  collection.collection_name,
-                );
-
-                // filter products in each collection based on search query
-                const filteredProducts = collection.products.filter((p) =>
-                  p.product_name?.toLowerCase().includes(search.toLowerCase()),
-                );
-
-                if (filteredProducts.length === 0) return null;
-
-                return (
-                  <div
-                    key={categoryId}
-                    id={categoryId}
-                    className="p-4 md:p-10 scroll-mt-24"
-                  >
-                    <div className="flex justify-between items-center mb-4">
-                      <h3 className="p-2 font-playfair text-2xl md:text-3xl font-bold text-[#3a2d28]">
-                        {categoryLabel}
-                      </h3>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-6">
-                      {filteredProducts.map((product) => (
-                        <MenuProductCard
-                          key={product.product_id}
-                          product={product}
-                        />
-                      ))}
-                    </div>
+              {filteredCollections.map((collection) => (
+                <div
+                  key={collection.categoryId}
+                  ref={(el) =>
+                    (sectionRefs.current[collection.categoryId] = el)
+                  }
+                  className="p-4 md:p-10 scroll-mt-24"
+                >
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="p-2 font-playfair text-2xl md:text-3xl font-bold text-[#3a2d28]">
+                      {collection.categoryLabel}
+                    </h3>
                   </div>
-                );
-              })}
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-6">
+                    {collection.filteredProducts.map((product) => (
+                      <MenuProductCard
+                        key={product.product_id}
+                        product={product}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ))}
             </>
           )}
         </div>

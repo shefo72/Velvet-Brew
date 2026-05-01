@@ -1,167 +1,206 @@
 import React, { useState, useEffect } from "react";
+import Button from "./../UI/Button";
+import toast from "react-hot-toast";
 
-const EditModal = ({ open, product, onCancel, onSave }) => {
+const EditModal = ({ open, product, onCancel, onSave, isEditing }) => {
   const [form, setForm] = useState({
+    product_id: "",
     product_name: "",
-    base_price: "",
-    category_name: "",
+    collection: "",
+    description: "",
+    price: "",
+    roast_type: "",
+    quantity: "",
+    low_stock_threshold: "",
   });
 
-  // لما المنتج يتغير نحط بياناته في الفورم
   useEffect(() => {
-    if (product) {
+    if (product && open) {
       setForm({
-        product_name: product.product_name,
-        base_price: product.base_price,
-        category_name: product.category_name,
+        product_id: product.product_id || "",
+        product_name: product.product_name || "",
+        collection: product.collection || "",
+        description: product.description || "",
+        price: product.price || "",
+        roast_type: product.roast_type || "",
+        quantity: product.quantity || "",
+        low_stock_threshold: product.low_stock_threshold || "15",
       });
     }
-  }, [product]);
+  }, [product, open]);
 
   if (!open || !product) return null;
 
+  const handleSubmit = () => {
+    if (
+      !form.product_name ||
+      !form.collection ||
+      !form.description ||
+      form.price === "" ||
+      form.quantity === "" ||
+      form.low_stock_threshold === ""
+    ) {
+      toast.error("Please fill all required fields");
+      return;
+    }
+
+    onSave(form);
+  };
+
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white  rounded-2xl w-150 h-130 shadow-lg">
-        <div className="bg-[#FEF2DF] p-3">
-          <h2 className="text-lg font-bold mb-2 text-[#271310] ">
-            {" "}
-            Edit Product Details{" "}
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[95vh] overflow-y-auto shadow-lg flex flex-col">
+        <div className="bg-[#FEF2DF] p-5 rounded-t-2xl border-b border-[#EBE1D6]">
+          <h2 className="text-xl font-bold mb-1 text-primary-coffee">
+            Edit Product Details
           </h2>
-          <p className="text-[#504442]">
-            Update inventory information for this batch.
+          <p className="text-[#504442] text-sm">
+            Update inventory information and identity for this batch.
           </p>
         </div>
-        <div className="p-3">
-          <h2 className="text-xl text-[#271310]">Bean Identity</h2>
-          <div className=" p-3 flex justify-between">
-            {/* Name */}
-            <div className="flex flex-col">
-              <label className="text-sm mb-1 text-[#504442]">
-                Product Name
-              </label>
-              <input
-                type="text"
-                value={form.product_name}
-                onChange={(e) =>
-                  setForm({ ...form, product_name: e.target.value })
-                }
-                className="w-60 border p-2 rounded mb-3 bg-[#EDE1CF4D] text-[#271310] text-xm"
-                placeholder="Product Name"
-              />
-            </div>
-            <div className="flex flex-col">
-              {/* Category */}
-              <label className="text-sm mb-1 text-[#504442]">Collection</label>
-              <input
-                type="text"
-                value={form.category_name}
-                onChange={(e) =>
-                  setForm({ ...form, category_name: e.target.value })
-                }
-                className="w-60 border p-2 rounded mb-3 bg-[#EDE1CF4D] text-[#271310] text-xm"
-                placeholder="Category"
-              />
+
+        <div className="p-6 flex flex-col gap-6">
+          <div>
+            <h3 className="text-lg font-bold text-primary-coffee mb-4 pb-2 border-b border-gray-100">
+              Bean Identity
+            </h3>
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col flex-1">
+                  <label className="text-sm font-medium mb-1 text-[#504442]">
+                    Product Name
+                  </label>
+                  <input
+                    type="text"
+                    value={form.product_name}
+                    onChange={(e) =>
+                      setForm({ ...form, product_name: e.target.value })
+                    }
+                    className="w-full border p-2.5 rounded-lg bg-[#EDE1CF4D] text-primary-coffee text-sm focus:outline-none focus:ring-2 focus:ring-[#C2885D]"
+                    placeholder="Product Name"
+                  />
+                </div>
+                <div className="flex flex-col flex-1">
+                  <label className="text-sm font-medium mb-1 text-[#504442]">
+                    Collection
+                  </label>
+                  <select
+                    value={form.collection}
+                    onChange={(e) =>
+                      setForm({ ...form, collection: e.target.value })
+                    }
+                    className="w-full border p-2.5 rounded-lg bg-[#EDE1CF4D] text-primary-coffee text-sm focus:outline-none focus:ring-2 focus:ring-[#C2885D]"
+                  >
+                    <option value="">Select Category</option>
+                    <option value="fresh brews">Fresh Brews</option>
+                    <option value="handmade croissants">
+                      Handmade Croissants
+                    </option>
+                    <option value="artisanal toasts">Artisanal Toasts</option>
+                    <option value="seasonal specials">Seasonal Specials</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col flex-1">
+                  <label className="text-sm font-medium mb-1 text-[#504442]">
+                    Price (EGP)
+                  </label>
+                  <input
+                    type="number"
+                    value={form.price}
+                    onChange={(e) =>
+                      setForm({ ...form, price: Number(e.target.value) })
+                    }
+                    className="w-full border p-2.5 rounded-lg bg-[#EDE1CF4D] text-primary-coffee text-sm focus:outline-none focus:ring-2 focus:ring-[#C2885D]"
+                    placeholder="Price"
+                  />
+                </div>
+                <div className="flex flex-col flex-2">
+                  <label className="text-sm font-medium mb-1 text-[#504442]">
+                    Description
+                  </label>
+                  <input
+                    type="text"
+                    value={form.description}
+                    onChange={(e) =>
+                      setForm({ ...form, description: e.target.value })
+                    }
+                    className="w-full border p-2.5 rounded-lg bg-[#EDE1CF4D] text-primary-coffee text-sm focus:outline-none focus:ring-2 focus:ring-[#C2885D]"
+                    placeholder="Brief description..."
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className=" px-3 flex justify-between">
-            {/* Price */}
-            <div className="flex flex-col">
-              <label className="text-sm mb-1 text-[#504442]">Price</label>
-              <input
-                type="number"
-                value={form.base_price}
-                onChange={(e) =>
-                  setForm({ ...form, base_price: e.target.value })
-                }
-                className="w-60 border p-2 rounded mb-4  bg-[#EDE1CF4D] text-[#271310] text-xm"
-                placeholder="Price"
-              />
-            </div>
-            <div className="flex flex-col">
-              {/* Category */}
-              <label className="text-sm mb-1 text-[#504442]">Description</label>
-              <input
-                type="text"
-                value={form.category_name}
-                onChange={(e) =>
-                  setForm({ ...form, category_name: e.target.value })
-                }
-                className="w-60 border p-2 rounded mb-3 bg-[#EDE1CF4D] text-[#271310] text-xm  "
-                placeholder="Category"
-              />
+          <div>
+            <h3 className="text-lg font-bold text-primary-coffee mb-4 pb-2 border-b border-gray-100">
+              Inventory Levels
+            </h3>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col flex-1">
+                <label className="text-sm font-medium mb-1 text-[#504442]">
+                  Roast Type
+                </label>
+                <select
+                  value={form.roast_type}
+                  onChange={(e) =>
+                    setForm({ ...form, roast_type: e.target.value })
+                  }
+                  className="w-full border p-2.5 rounded-lg bg-[#EDE1CF4D] text-primary-coffee text-sm focus:outline-none focus:ring-2 focus:ring-[#C2885D]"
+                >
+                  <option value="">Select Roast</option>
+                  <option value="Light">Light Roast</option>
+                  <option value="Medium">Medium Roast</option>
+                  <option value="Dark">Dark Roast</option>
+                </select>
+              </div>
+
+              <div className="flex flex-col flex-1">
+                <label className="text-sm font-medium mb-1 text-[#504442]">
+                  Current Stock
+                </label>
+                <input
+                  type="number"
+                  value={form.quantity}
+                  onChange={(e) =>
+                    setForm({ ...form, quantity: Number(e.target.value) })
+                  }
+                  className="w-full border p-2.5 rounded-lg bg-[#EDE1CF4D] text-primary-coffee text-sm focus:outline-none focus:ring-2 focus:ring-[#C2885D]"
+                  placeholder="Quantity"
+                />
+              </div>
+
+              <div className="flex flex-col flex-1">
+                <label className="text-sm font-medium mb-1 text-[#504442]">
+                  Reorder Point
+                </label>
+                <input
+                  type="number"
+                  value={form.low_stock_threshold}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      low_stock_threshold: Number(e.target.value),
+                    })
+                  }
+                  className="w-full border p-2.5 rounded-lg bg-[#EDE1CF4D] text-primary-coffee text-sm focus:outline-none focus:ring-2 focus:ring-[#C2885D]"
+                  placeholder="e.g. 15"
+                />
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="p-3">
-          <h2 className="text-xl text-[#271310]">Inventory Levels</h2>
-          <div className="flex justify-between p-3">
-            <div className="flex flex-col">
-              {/* Label */}
-              <label className="text-sm mb-1 text-[#504442]">Roast Type</label>
-
-              {/* Select بدل input */}
-              <select
-                value={form.category_name}
-                onChange={(e) =>
-                  setForm({ ...form, category_name: e.target.value })
-                }
-                className="w-35 border p-2 rounded mb-3 bg-[#EDE1CF4D] text-[#271310] text-sm focus:outline-none focus:ring-2 focus:ring-[#C2885D]"
-              >
-                <option value="">Select Roast</option>
-                <option value="Light Roast">Light Roast</option>
-                <option value="Medium Roast">Medium Roast</option>
-                <option value="Dark Roast">Dark Roast</option>
-              </select>
-            </div>
-            <div className="flex flex-col">
-              <label className="text-sm mb-1 text-[#504442]">
-                Current Stock (kg)
-              </label>
-              <input
-                type="number"
-                value={form.base_price}
-                onChange={(e) =>
-                  setForm({ ...form, base_price: e.target.value })
-                }
-                className="w-35 border p-2 rounded mb-4  bg-[#EDE1CF4D] text-[#271310] text-xm"
-                placeholder="stock"
-              />
-            </div>
-            <div className="flex flex-col">
-              <label className="text-sm mb-1 text-[#504442]">
-                Reorder Point
-              </label>
-              <input
-                type="number"
-                value={form.base_price}
-                onChange={(e) =>
-                  setForm({ ...form, base_price: e.target.value })
-                }
-                className="w-35 border p-2 rounded mb-4  bg-[#EDE1CF4D] text-[#271310] text-xm"
-                placeholder="order point"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Buttons */}
-        <div className="flex justify-center gap-4 bg-[#FEF2DF] p-4">
-          <button
-            onClick={() => onSave(form)}
-            className="bg-[#271310] text-white px-4 py-1 rounded-xl hover:bg-[#3E2723]"
-          >
-            Save Changes
-          </button>
-
-          <button
-            onClick={onCancel}
-            className=" px-4 py-1 rounded-xl text-[#271310] hover:bg-gray-400"
-          >
+        <div className="flex justify-end gap-3 bg-[#FCF6ED] p-5 rounded-b-2xl border-t border-[#EBE1D6]">
+          <Button type="secondary" onClick={onCancel} disabled={isEditing}>
             Cancel
-          </button>
+          </Button>
+          <Button onClick={handleSubmit} disabled={isEditing}>
+            {isEditing ? "Saving..." : "Save Changes"}
+          </Button>
         </div>
       </div>
     </div>

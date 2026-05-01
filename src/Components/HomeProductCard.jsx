@@ -1,10 +1,11 @@
+import { memo } from "react";
 import { PlusCircle } from "lucide-react";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 
 import { formatCurrency } from "../utils/helpers";
 
-export default function ProductCard({ product }) {
+const ProductCard = memo(function ProductCard({ product }) {
   const { image_url, product_name, price, description } = product;
   const dispatch = useDispatch();
 
@@ -58,4 +59,6 @@ export default function ProductCard({ product }) {
       </div>
     </div>
   );
-}
+});
+
+export default ProductCard;

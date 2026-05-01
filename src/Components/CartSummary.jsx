@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { ArrowRight, Lock } from "lucide-react";
 
@@ -6,9 +7,19 @@ import { formatCurrency } from "../utils/helpers";
 
 function CartSummary() {
   const { totalQuantity, totalAmount } = useSelector((state) => state.cart);
+
   const shipping = 5;
-  const tax = Number((0.14 * totalAmount).toFixed(2));
-  const grandTotal = Number((totalAmount + shipping + tax).toFixed(2));
+  const { tax, grandTotal } = useMemo(() => {
+    const calculatedTax = Number((0.14 * totalAmount).toFixed(2));
+    const calculatedGrandTotal = Number(
+      (totalAmount + shipping + calculatedTax).toFixed(2),
+    );
+
+    return {
+      tax: calculatedTax,
+      grandTotal: calculatedGrandTotal,
+    };
+  }, [totalAmount]);
 
   return (
     <div className="lg:col-span-5 xl:col-span-4 w-full flex justify-center lg:block">

@@ -28,7 +28,7 @@ function MenuProductCard({ product }) {
     <div className="group bg-[#FFFFFF] rounded-xl flex flex-col min-w-50 max-w-75 overflow-hidden w-full border border-[#EBE1D6] cursor-pointer hover:shadow-lg transition-shadow duration-300">
       <div className="relative h-60 md:h-70 w-full shrink-0 overflow-hidden">
         <img
-          src={"https://coffee.alexflipnote.dev/random"}
+          src={image_url}
           alt={product_name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
