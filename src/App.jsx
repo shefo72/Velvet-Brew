@@ -17,15 +17,12 @@ const SignUp = lazy(() => import("./pages/SignUp"));
 const Login = lazy(() => import("./pages/Login"));
 const Cart = lazy(() => import("./pages/Cart"));
 const OrderConfirmation = lazy(() => import("./pages/OrderConfirmation"));
-const Details = lazy(() => import("./pages/Details"));
 const Menu = lazy(() => import("./pages/Menu"));
 const Contact = lazy(() => import("./pages/Contact"));
 
-const Dashboard = lazy(() => import("./pages/Dashboard"));
-const DashboardInventory = lazy(
-  () => import("./components/DashboardInventory"),
-);
-const DashboardOverview = lazy(() => import("./components/DashboardOverview"));
+const DashboardLayout = lazy(() => import("./UI/DashboardLayout"));
+const DashboardProducts = lazy(() => import("./pages/DashboardProducts"));
+const DashboardOverview = lazy(() => import("./pages/DashboardOverView"));
 
 function App() {
   const [search, setSearch] = useState("");
@@ -53,23 +50,19 @@ function App() {
           path: "/orders/:orderId",
           element: <OrderConfirmation />,
         },
-        {
-          path: "/details/:orderId",
-          element: <Details />,
-        },
       ],
     },
     {
       path: "/dashboard",
       element: (
         <Suspense fallback={<FullPageSpinner />}>
-          <Dashboard />
+          <DashboardLayout />
         </Suspense>
       ),
       children: [
         { index: true, element: <Navigate replace to="overview" /> },
         { path: "overview", element: <DashboardOverview /> },
-        { path: "inventory", element: <DashboardInventory /> },
+        { path: "products", element: <DashboardProducts /> },
       ],
     },
   ]);
