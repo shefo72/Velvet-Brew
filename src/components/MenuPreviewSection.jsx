@@ -6,9 +6,11 @@ import "swiper/css";
 import "swiper/css/free-mode";
 
 import ProductCard from "./HomeProductCard";
-import { products } from "./../data/fakeProducts";
+import { useProducts } from "../hooks/useProducts";
 
 export default function MenuPreviewSection() {
+  const { allProducts } = useProducts();
+  const Products = allProducts.slice(0, 10);
   return (
     <section className="relative w-full max-w-7xl mx-auto px-6 lg:px-20 py-16 z-10">
       <h2 className="text-4xl lg:text-5xl font-serif font-bold text-primary-coffee mb-10 text-center lg:text-left">
@@ -31,7 +33,7 @@ export default function MenuPreviewSection() {
           }}
           className="w-full"
         >
-          {products.map((product) => (
+          {Products.map((product) => (
             <SwiperSlide key={product.id} className="h-auto pb-1.5">
               <ProductCard product={product} />
             </SwiperSlide>
