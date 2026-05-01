@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { capitalizeFirstLetter, formatCurrency } from "./../utils/helpers";
 
 const RecentOrders = memo(function RecentOrders({ orders }) {
   return (
@@ -25,7 +26,7 @@ const RecentOrders = memo(function RecentOrders({ orders }) {
           <tbody>
             {orders.map((order, i) => (
               <tr
-                key={order.id}
+                key={order.order_id}
                 className={`hover:bg-secondary-coffee/50 transition-colors duration-150 ${
                   i !== orders.length - 1
                     ? "border-b border-secondary-coffee"
@@ -33,10 +34,10 @@ const RecentOrders = memo(function RecentOrders({ orders }) {
                 }`}
               >
                 <td className="px-6 py-4 text-sm font-mono text-muted-coffee">
-                  {order.id}
+                  {order.order_id}
                 </td>
                 <td className="px-6 py-4 text-sm font-medium text-primary-coffee">
-                  {order.customer}
+                  {order.customer_name}
                 </td>
                 <td className="px-6 py-4 text-sm text-muted-coffee hidden md:table-cell">
                   {order.items}
@@ -44,18 +45,18 @@ const RecentOrders = memo(function RecentOrders({ orders }) {
                 <td className="px-6 py-4">
                   <span
                     className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
-                      order.status === "Roasting"
+                      order.status === "roasting"
                         ? "bg-amber-100 text-amber-800"
-                        : order.status === "In Route"
+                        : order.status === "pending"
                           ? "bg-blue-100 text-blue-800"
                           : "bg-emerald-100 text-emerald-800"
                     }`}
                   >
-                    {order.status}
+                    {capitalizeFirstLetter(order.status)}
                   </span>
                 </td>
                 <td className="px-6 py-4 text-sm font-bold text-primary-coffee text-right">
-                  {order.amount}
+                  {formatCurrency(order.amount)}
                 </td>
               </tr>
             ))}

@@ -18,11 +18,11 @@ const Login = lazy(() => import("./pages/Login"));
 const Cart = lazy(() => import("./pages/Cart"));
 const OrderConfirmation = lazy(() => import("./pages/OrderConfirmation"));
 const Menu = lazy(() => import("./pages/Menu"));
-const Contact = lazy(() => import("./pages/Contact"));
 
 const DashboardLayout = lazy(() => import("./UI/DashboardLayout"));
 const DashboardProducts = lazy(() => import("./pages/DashboardProducts"));
 const DashboardOverview = lazy(() => import("./pages/DashboardOverView"));
+const DashboardInventory = lazy(() => import("./pages/DashboardInventory"));
 
 function App() {
   const [search, setSearch] = useState("");
@@ -45,7 +45,6 @@ function App() {
         { path: "/signup", element: <SignUp /> },
         { path: "/cart", element: <Cart /> },
         { path: "/menu", element: <Menu /> },
-        { path: "/contact", element: <Contact /> },
         {
           path: "/orders/:orderId",
           element: <OrderConfirmation />,
@@ -63,6 +62,7 @@ function App() {
         { index: true, element: <Navigate replace to="overview" /> },
         { path: "overview", element: <DashboardOverview /> },
         { path: "products", element: <DashboardProducts /> },
+        { path: "inventory", element: <DashboardInventory /> },
       ],
     },
   ]);

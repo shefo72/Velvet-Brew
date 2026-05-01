@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 function Button({
   children,
   type = "primary",
-  disabled = "false",
+  disabled = false,
   onClick,
   to,
   icon,
@@ -52,7 +52,7 @@ function Button({
 
   if (onClick) {
     return (
-      <button onClick={onClick} className={styles[type]} disable={disabled}>
+      <button onClick={onClick} className={styles[type]} disabled={disabled}>
         {icon && (
           <span className="flex items-center justify-center">{icon}</span>
         )}
@@ -63,7 +63,7 @@ function Button({
   }
 
   return (
-    <button className={styles[type]} disable={disabled}>
+    <button className={styles[type]} disabled={disabled}>
       {icon && <span className="flex items-center justify-center">{icon}</span>}
       {children}
     </button>
