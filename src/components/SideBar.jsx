@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Overview", path: "/dashboard/overview" },
-  { icon: Package, label: "Inventory", path: "/dashboard/inventory" },
+  { icon: Package, label: "Products", path: "/dashboard/products" },
 ];
 
 export default function Sidebar({ mobileOpen, onClose }) {
