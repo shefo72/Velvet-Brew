@@ -63,24 +63,6 @@ export default function TestimonialSection() {
       id="Testimonial"
       className="relative w-full max-w-5xl mx-auto px-6 lg:px-20 py-16 z-10"
     >
-      {/*Custom styles for pagination bullets */}
-      <style>
-        {`
-          .testimonial-swiper .swiper-pagination-bullet {
-            width: 24px;
-            height: 3px;
-            border-radius: 12px;
-            background: #d4c1b9;
-            opacity: 1;
-            transition: all 0.3s ease;
-          }
-          .testimonial-swiper .swiper-pagination-bullet-active {
-            background: #5c3e2e;
-            width: 32px;
-          }
-        `}
-      </style>
-
       <div className="text-center mb-12">
         <h2 className="text-4xl lg:text-5xl font-serif font-bold text-primary-coffee mb-4">
           Echoes of the Roastery
@@ -101,7 +83,7 @@ export default function TestimonialSection() {
         >
           {testimonials.map((item) => (
             <SwiperSlide key={item.id}>
-              <div className="flex flex-col pb-12  lg:pb-15  items-center justify-center text-center">
+              <div className="flex flex-col pb-12 lg:pb-15 items-center justify-center text-center">
                 <Quote
                   className="text-primary-coffee mb-6 "
                   size={32}

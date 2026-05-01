@@ -16,10 +16,7 @@ function ContactSection() {
 
           <div className="flex flex-col gap-6">
             <div className="flex items-start gap-4">
-              <MapPin
-                className="text-prbg-primary-coffee mt-1 shrink-0"
-                size={20}
-              />
+              <MapPin className="text-primary-coffee mt-1 shrink-0" size={20} />
               <div>
                 <h4 className="font-bold text-primary-coffee text-sm mb-1">
                   Location
@@ -33,10 +30,7 @@ function ContactSection() {
             </div>
 
             <div className="flex items-start gap-4">
-              <Clock
-                className="text-prbg-primary-coffee mt-1 shrink-0"
-                size={20}
-              />
+              <Clock className="text-primary-coffee mt-1 shrink-0" size={20} />
               <div>
                 <h4 className="font-bold text-primary-coffee text-sm mb-1">
                   Hours
@@ -50,10 +44,7 @@ function ContactSection() {
             </div>
 
             <div className="flex items-start gap-4">
-              <Mail
-                className="text-prbg-primary-coffee mt-1 shrink-0"
-                size={20}
-              />
+              <Mail className="text-primary-coffee mt-1 shrink-0" size={20} />
               <div>
                 <h4 className="font-bold text-primary-coffee text-sm mb-1">
                   Contact
@@ -82,7 +73,7 @@ function ContactSection() {
                 <input
                   type="text"
                   placeholder="Your name"
-                  className="w-full bg-white/60 border border-transparent focus:border-prbg-primary-coffee focus:bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all placeholder:text-gray-400"
+                  className="w-full bg-white/60 border border-transparent focus:border-primary-coffee focus:bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all placeholder:text-gray-400"
                 />
               </div>
 
@@ -93,7 +84,7 @@ function ContactSection() {
                 <input
                   type="email"
                   placeholder="your@email.com"
-                  className="w-full bg-white/60 border border-transparent focus:border-prbg-primary-coffee focus:bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all placeholder:text-gray-400"
+                  className="w-full bg-white/60 border border-transparent focus:border-primary-coffee focus:bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all placeholder:text-gray-400"
                 />
               </div>
             </div>
@@ -105,7 +96,7 @@ function ContactSection() {
               <textarea
                 placeholder="How can we help?"
                 rows="4"
-                className="w-full bg-white/60 border border-transparent focus:border-prbg-primary-coffee focus:bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all resize-none placeholder:text-gray-400"
+                className="w-full bg-white/60 border border-transparent focus:border-primary-coffee focus:bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all resize-none placeholder:text-gray-400"
               ></textarea>
             </div>
 

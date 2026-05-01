@@ -51,12 +51,12 @@ function DashboardInventory() {
                 </tr>
               </thead>
               <tbody>
-                {allItems.map((item, index) => {
+                {allItems.map((item) => {
                   const isLow = item.is_low_stock === "1";
 
                   return (
                     <tr
-                      key={index}
+                      key={item.product_name}
                       className="border-b border-gray-100 hover:bg-[#FDFBF7] transition-colors last:border-none"
                     >
                       <td className="py-4 px-6 text-[#3a2d28] font-medium">

@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from "react-router-dom";
 
@@ -10,7 +11,9 @@ import { useProducts } from "../hooks/useProducts";
 
 export default function MenuPreviewSection() {
   const { allProducts } = useProducts();
-  const Products = allProducts.slice(0, 10);
+
+  const Products = useMemo(() => allProducts.slice(0, 10), [allProducts]);
+
   return (
     <section className="relative w-full max-w-7xl mx-auto px-6 lg:px-20 py-16 z-10">
       <h2 className="text-4xl lg:text-5xl font-serif font-bold text-primary-coffee mb-10 text-center lg:text-left">
@@ -19,7 +22,7 @@ export default function MenuPreviewSection() {
 
       <div className="py-4 -my-4">
         <Swiper
-          modules={[navigation]}
+          modules={[FreeMode]}
           freeMode={true}
           spaceBetween={24}
           slidesPerView={1.2}
