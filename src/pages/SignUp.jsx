@@ -1,11 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SwiperComponent from "../Components/swiper";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-// import axios from "axios";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 
 export default function SignUp() {
+
+  const navigate = useNavigate();
 
   const passwordRules = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/
   const phoneRules = /^[ +]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/
@@ -17,27 +21,52 @@ export default function SignUp() {
     phone: Yup.string().matches(phoneRules, 'Invalid phone number').required('Phone number is required'),
     password: Yup.string().min(8, 'Password must be at least 8 characters').matches(passwordRules, "Password must contain at least one uppercase letter, one lowercase letter, and one number & one special character").required('Password is required'),
     birthday: Yup.date()
-  .required('Birthday is required')
-  .test('age', 'You must be at least 18 years old', function (value) {
-    if (!value) return false;
+      .required('Birthday is required')
+      .test('age', 'You must be at least 18 years old', function (value) {
+        if (!value) return false;
 
-    const today = new Date();
-    const birthDate = new Date(value);
+        const today = new Date();
+        const birthDate = new Date(value);
 
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
 
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+
+        return age >= 18;
+      })
+  })
+
+async function handelSignUp(values) {
+  try {
+    const { data } = await axios.post(
+      'https://velvetbrewapi-production.up.railway.app/api/signup.php',
+      {
+        first_name: values.firstName,
+        last_name: values.lastName,
+        email: values.email,
+        phone: values.phone,
+        birthday: values.birthday,
+        password: values.password,
+      }
+    );
+
+    console.log('API Response:', data);
+
+    if (data.status === 'success') {
+      toast.success(data.message || 'Registered successfully');
+      setTimeout(() => navigate('/login'), 2000);
+    } else {
+      toast.error(data.message || 'Something went wrong');
     }
-
-    return age >= 18;
-  })
-  })
-
-  function handelSignUp(values) {
-    console.log('Form submitted:', values);
+  } catch (error) {
+    console.error('Error:', error.response?.data);
+    toast.error(error.response?.data?.message || 'Registration failed');
   }
+}
+
   const formik = useFormik({
     initialValues: {
       firstName: '',
@@ -85,8 +114,8 @@ export default function SignUp() {
                       className="w-full px-4 py-3 bg-[#E8E0D4] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#6B4423]"
                     />
                     {formik.touched.firstName && formik.errors.firstName && (
-    <p className="text-red-500 text-xs mt-1">{formik.errors.firstName}</p>
-        )}
+                      <p className="text-red-500 text-xs mt-1">{formik.errors.firstName}</p>
+                    )}
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-[#4A3728] mb-2">
@@ -102,8 +131,8 @@ export default function SignUp() {
                       className="w-full px-4 py-3 bg-[#E8E0D4] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#6B4423]"
                     />
                     {formik.touched.lastName && formik.errors.lastName && (
-  <p className="text-red-500 text-xs mt-1">{formik.errors.lastName}</p>
-)}
+                      <p className="text-red-500 text-xs mt-1">{formik.errors.lastName}</p>
+                    )}
                   </div>
                 </div>
 
@@ -139,8 +168,8 @@ export default function SignUp() {
                     className="w-full px-4 py-3 bg-[#E8E0D4] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#6B4423]"
                   />
                   {formik.touched.birthday && formik.errors.birthday && (
-  <p className="text-red-500 text-xs mt-1">{formik.errors.birthday}</p>
-)}
+                    <p className="text-red-500 text-xs mt-1">{formik.errors.birthday}</p>
+                  )}
                 </div>
 
                 <div>
@@ -158,8 +187,8 @@ export default function SignUp() {
                     className="w-full px-4 py-3 bg-[#E8E0D4] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#6B4423]"
                   />
                   {formik.touched.phone && formik.errors.phone && (
-    <p className="text-red-500 text-xs mt-1">{formik.errors.phone}</p>
-        )}
+                    <p className="text-red-500 text-xs mt-1">{formik.errors.phone}</p>
+                  )}
                 </div>
 
                 <div>
@@ -176,8 +205,8 @@ export default function SignUp() {
                     className="w-full px-4 py-3 bg-[#E8E0D4] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#6B4423]"
                   />
                   {formik.touched.password && formik.errors.password && (
-    <p className="text-red-500 text-xs mt-1">{formik.errors.password}</p>
-        )}
+                    <p className="text-red-500 text-xs mt-1">{formik.errors.password}</p>
+                  )}
                 </div>
 
                 <button

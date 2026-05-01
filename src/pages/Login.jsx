@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import signupImage from "../assets/SignUp2.jpg";
 
 export default function Login() {
   return (
@@ -6,7 +7,7 @@ export default function Login() {
       <div className="grid lg:grid-cols-2 sm:grid-cols-1 items-center">
         <div className="image relative hidden lg:block md:block">
           <img
-            src="/coffe2.jpg"
+            src={signupImage}
             alt="Bakery Image"
             className="w-175 object-cover"
           />
