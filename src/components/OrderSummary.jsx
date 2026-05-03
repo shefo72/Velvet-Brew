@@ -5,10 +5,10 @@ import { ArrowRight, Lock } from "lucide-react";
 import Button from "../UI/Button";
 import { formatCurrency } from "../utils/helpers";
 
-function CartSummary() {
+function OrderSummary({ hideCheckoutButton }) {
   const { totalQuantity, totalAmount } = useSelector((state) => state.cart);
+  const shipping = totalQuantity > 0 ? 5 : 0;
 
-  const shipping = 5;
   const { tax, grandTotal } = useMemo(() => {
     const calculatedTax = Number((0.14 * totalAmount).toFixed(2));
     const calculatedGrandTotal = Number(
@@ -19,11 +19,11 @@ function CartSummary() {
       tax: calculatedTax,
       grandTotal: calculatedGrandTotal,
     };
-  }, [totalAmount]);
+  }, [totalAmount, shipping]);
 
   return (
     <div className="lg:col-span-5 xl:col-span-4 w-full flex justify-center lg:block">
-      <div className="w-full max-w-88 sm:max-w-md lg:max-w-full h-fit bg-[#FEF2DF] rounded-3xl p-8 md:p-10 shadow-sm border border-secondary-coffee">
+      <div className="w-full max-w-88 sm:max-w-md lg:max-w-full h-fit bg-[#EDE1CF80] rounded-3xl p-8 md:p-10 shadow-sm border border-secondary-coffee">
         <h2 className="font-serif text-2xl font-bold text-[#3a2d28] mb-6">
           Cart Summary
         </h2>
@@ -56,12 +56,17 @@ function CartSummary() {
           </span>
         </div>
 
-        <div className="w-full">
-          <Button className="w-full justify-center">
-            Proceed to Checkout
-            <ArrowRight size={18} />
-          </Button>
-        </div>
+        {!hideCheckoutButton && (
+          <div className="w-full mx-auto ">
+            <Button
+              to="/checkout"
+              className="w-full flex items-center justify-center gap-2"
+            >
+              Proceed to Checkout
+              <ArrowRight size={18} />
+            </Button>
+          </div>
+        )}
 
         <div className="flex items-center justify-center gap-2 mt-5 text-xs text-[#8c6b5d]">
           <Lock size={14} />
@@ -72,4 +77,4 @@ function CartSummary() {
   );
 }
 
-export default CartSummary;
+export default OrderSummary;

@@ -1,19 +1,29 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Lock, ArrowRight, Cookie, Trash } from "lucide-react";
 import toast from "react-hot-toast";
 
 import Button from "./../UI/Button";
 import EmptyCart from "../components/EmptyCart";
-import CartSummary from "../components/CartSummary";
+import OrderSummary from "../components/OrderSummary";
 import CartItemCard from "../components/CartItemCard";
+import FullPageSpinner from "./../UI/FullPageSpinner";
+
+import { fetchCartItems } from "../store/cartSlice";
 
 function Cart() {
-  const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
+  const { items: cartItems, status } = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.user.userData);
 
-  function handleClearCart() {
-    dispatch({ type: "cart/clearCart" });
-    toast.success("Your cart is now clear and fresh!");
+  useEffect(() => {
+    if (user && user.customer_id) {
+      dispatch(fetchCartItems(user.customer_id));
+    }
+  }, [dispatch, user]);
+
+  if (status === "loading" && cartItems.length === 0) {
+    return <FullPageSpinner />;
   }
 
   if (cartItems.length === 0) {
@@ -21,7 +31,10 @@ function Cart() {
   }
 
   return (
-    <main className="min-h-screen bg-[#FFF8F2] pt-16 pb-16 px-6 lg:px-20 font-sans">
+    <main className="relative min-h-screen bg-[#FFF8F2] pt-16 pb-16 px-6 lg:px-20 font-sans">
+      {status === "loading" && cartItems.length > 0 && (
+        <div className="fixed inset-0 bg-white/20 backdrop-blur-[1px] z-50 flex items-center justify-center "></div>
+      )}
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
           <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#3a2d28] mb-2">
@@ -37,14 +50,8 @@ function Cart() {
             {cartItems.map((item) => (
               <CartItemCard item={item} key={item.product_id} />
             ))}
-            <div className="text-end">
-              <Button onClick={handleClearCart}>
-                <Trash size={18} />
-                Clear Cart
-              </Button>
-            </div>
           </div>
-          <CartSummary />
+          <OrderSummary hideCheckoutButton={false} />
         </div>
       </div>
     </main>

@@ -1,27 +1,40 @@
 import { memo } from "react";
 import { PlusCircle } from "lucide-react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
 import { formatCurrency } from "../utils/helpers";
+import { addItemToCart } from "../store/cartSlice";
 
 const ProductCard = memo(function ProductCard({ product }) {
   const { image_url, product_name, price, description } = product;
   const dispatch = useDispatch();
 
+  const user = useSelector((state) => state.user.userData);
+
   function handleAdd(product) {
+    if (!user || !user.customer_id) {
+      toast.error("Please login to add items to your cart!");
+      return;
+    }
+
     const itemToAdd = {
       ...product,
+      customer_id: user.customer_id,
+      product_id: product.id || product.product_id,
       quantity: 1,
-      totalPrice: product.price,
     };
 
-    dispatch({ type: "cart/addToCart", payload: itemToAdd });
-    toast.success(
-      <span>
-        <b>{product.product_name}</b> added to your cart!
-      </span>,
-    );
+    dispatch(addItemToCart(itemToAdd))
+      .unwrap()
+      .then(() => {
+        toast.success(
+          <span>
+            <b>{product.product_name}</b> added to your cart!
+          </span>,
+        );
+      })
+      .catch(() => {});
   }
 
   return (

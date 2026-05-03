@@ -1,12 +1,13 @@
 import { AlertCircle, RefreshCcw, Home, ArrowLeft } from "lucide-react";
-
 import Button from "./Button";
 
 function QueryError({ error }) {
   const message =
-    error?.response?.data?.message ||
-    error?.message ||
-    "We couldn't load data right now. Please try again.";
+    typeof error === "string"
+      ? error
+      : error?.response?.data?.message ||
+        error?.message ||
+        "We couldn't load data right now. Please try again.";
 
   return (
     <div className=" bg-[#F5EFE6] flex flex-col items-center justify-center px-6 py-12">
