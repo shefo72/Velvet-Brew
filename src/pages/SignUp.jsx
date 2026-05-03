@@ -1,14 +1,15 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import SwiperComponent from "../Components/swiper";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useState } from "react";
 
+import SwiperComponent from "../Components/swiper";
+import {signUpApi} from "../api/userApi"
 
 export default function SignUp() {
-
+const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const passwordRules = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/
@@ -39,33 +40,26 @@ export default function SignUp() {
       })
   })
 
-async function handelSignUp(values) {
-  try {
-    const { data } = await axios.post(
-      'https://velvetbrewapi-production.up.railway.app/api/signup.php',
-      {
-        first_name: values.firstName,
-        last_name: values.lastName,
-        email: values.email,
-        phone: values.phone,
-        birthday: values.birthday,
-        password: values.password,
+async function handleSignUp(values) {
+    setIsLoading(true);
+    try {
+      const data = await signUpApi(values);
+
+      if (data.status === "success") {
+        toast.success(data.message || "Registered successfully!");
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      } else {
+        toast.error(data.message || "Registration failed");
       }
-    );
-
-    console.log('API Response:', data);
-
-    if (data.status === 'success') {
-      toast.success(data.message || 'Registered successfully');
-      setTimeout(() => navigate('/login'), 2000);
-    } else {
-      toast.error(data.message || 'Something went wrong');
+    } catch (error) {
+      console.error("Error:", error.response?.data);
+      toast.error(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
     }
-  } catch (error) {
-    console.error('Error:', error.response?.data);
-    toast.error(error.response?.data?.message || 'Registration failed');
   }
-}
 
   const formik = useFormik({
     initialValues: {
@@ -77,13 +71,13 @@ async function handelSignUp(values) {
       password: '',
     },
     validationSchema,
-    onSubmit: handelSignUp
+    onSubmit: handleSignUp 
   });
 
   return (
     <section className="sign-up">
       <div className="grid lg:grid-cols-2 sm:grid-cols-1  items-center justify-between">
-        <div className="hidden lg:block md:block">
+        <div className="hidden lg:block ">
           <SwiperComponent />
         </div>
 
@@ -181,6 +175,7 @@ async function handelSignUp(values) {
                     type="tel"
                     placeholder="Enter your phone number"
                     name='phone'
+                    maxLength="11"
                     value={formik.values.phone}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -211,7 +206,7 @@ async function handelSignUp(values) {
 
                 <button
                   type="submit"
-                  className="w-full py-3 bg-[#6B4423] text-white rounded-full hover:bg-[#5A3720]"
+                  className="w-full py-3 bg-primary-coffee cursor-pointer duration-150 font-semibold text-white rounded-full hover:bg-[#5A3720]"
                 >
                   Sign Up
                 </button>

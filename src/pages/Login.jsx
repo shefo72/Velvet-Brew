@@ -1,79 +1,77 @@
-import { Link, useNavigate } from "react-router-dom";
-import signupImage from "../assets/SignUp2.jpg";
-import { useDispatch } from "react-redux";
-import { setUser } from "../store/userSlice";
-import { useFormik } from "formik";
-import toast from "react-hot-toast";  
 import * as Yup from "yup";
-import axios from "axios";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useFormik } from "formik";
+
+import { loginApi } from "../api/userApi";
+import signupImage from "../assets/SignUp2.jpg";
+import { setUser } from "../store/userSlice";
 
 export default function Login() {
-
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
-  const passwordRules = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/
-  const phoneRules = /^[ +]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/
+
+  const passwordRules =
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
+  const phoneRules = /^[ +]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
 
   const validationSchema = Yup.object({
-    email: Yup.string().email('Invalid email address').required('Email is required'),
-    password: Yup.string().min(8, 'Password must be at least 8 characters').matches(passwordRules, "Password must contain at least one uppercase letter, one lowercase letter, and one number & one special character").required('Password is required'),
-  })
-
-async function handelLogin(values) {
-  try {
-    const { data } = await axios.post(
-      '/api/login.php',
-      {
-        email: values.email,
-        password: values.password,
-      }
-    );
-
-    console.log('API Response:', data);
-
-    if (data.status === 'success') {
-      dispatch(setUser({
-        user: data.user,
-        token: data.token,
-      }));
-
-      toast.success(data.message || 'Welcome back!');
-
-      setTimeout(() => {
-        if (data.role === 'admin') {
-          navigate('/dashboard');
-        } else {
-          navigate('/');
-        }
-      }, 2000);
-
-    } else {
-      toast.error(data.message || 'Something went wrong');
-    }
-  } catch (error) {
-    console.error(error);
-    toast.error(error.response?.data?.message || 'failed to login');
-  }
-}
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    password: Yup.string()
+      .min(8, "Password must be at least 8 characters")
+      .matches(
+        passwordRules,
+        "Password must contain at least one uppercase letter, one lowercase letter, and one number & one special character",
+      )
+      .required("Password is required"),
+  });
 
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       remeberMe: false,
     },
     validationSchema,
-    onSubmit: handelLogin
+    onSubmit: handelLogin,
   });
 
+  async function handelLogin(values) {
+    try {
+      const data = await loginApi(values.email, values.password);
+      if (data.status === "success") {
+        dispatch(
+          setUser({
+            user: data.user,
+            role: data.role,
+          }),
+        );
 
+        toast.success(data.message || "Welcome back!");
+
+        setTimeout(() => {
+          if (data.role === "admin") {
+            navigate("/dashboard");
+          } else {
+            navigate("/");
+          }
+        }, 2000);
+      } else {
+        toast.error(data.message || "Something went wrong");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response?.data?.message || "Failed to login");
+    }
+  }
 
   return (
     <section className="sign-in">
       <div className="grid lg:grid-cols-2 sm:grid-cols-1 items-center">
-        <div className="image relative hidden lg:block md:block">
+        <div className="image relative hidden lg:block">
           <img
             src={signupImage}
             alt="Bakery Image"
@@ -95,7 +93,10 @@ async function handelLogin(values) {
 
             <form className="space-y-5" onSubmit={formik.handleSubmit}>
               <div>
-                <label className="block text-xs font-semibold text-[#4A3728] mb-2" htmlFor="email">
+                <label
+                  className="block text-xs font-semibold text-[#4A3728] mb-2"
+                  htmlFor="email"
+                >
                   Email Address
                 </label>
                 <input
@@ -114,7 +115,10 @@ async function handelLogin(values) {
               )}
 
               <div>
-                <label className="block text-xs font-semibold text-[#4A3728] mb-2" htmlFor="password">
+                <label
+                  className="block text-xs font-semibold text-[#4A3728] mb-2"
+                  htmlFor="password"
+                >
                   Password
                 </label>
                 <input
@@ -134,7 +138,7 @@ async function handelLogin(values) {
 
               <button
                 type="submit"
-                className="w-full py-3 bg-[#6B4423] text-white rounded-full hover:bg-[#5A3720]"
+                className="w-full py-3 bg-primary-coffee cursor-pointer duration-150 font-semibold text-white rounded-full hover:bg-[#5A3720]"
               >
                 Sign In
               </button>

@@ -55,7 +55,7 @@ function DashboardOverview() {
     },
     {
       label: "Orders Today",
-      value: `${formatCurrency(ordersData?.orders_today) || 0}`,
+      value: ordersData?.orders_today || 0,
       icon: ShoppingBag,
     },
     {

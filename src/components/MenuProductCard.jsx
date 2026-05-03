@@ -1,27 +1,39 @@
 import { ShoppingBag } from "lucide-react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
 import Button from "../UI/Button";
 import { formatCurrency } from "../utils/helpers";
+import { addItemToCart } from "../store/cartSlice";
 
 function MenuProductCard({ product }) {
-  const { product_name, description, image_url, price } = product;
+  const { product_name, description, image_url, price, product_id } = product;
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.userData);
 
   function handleAdd(product) {
+    if (!user || !user.customer_id) {
+      toast.error("Please login to add items to your cart!");
+      return;
+    }
+
     const itemToAdd = {
       ...product,
+      customer_id: user.customer_id,
+      product_id: product.id || product.product_id,
       quantity: 1,
-      totalPrice: product.price,
     };
 
-    dispatch({ type: "cart/addToCart", payload: itemToAdd });
-    toast.success(
-      <span>
-        <b>{product.product_name}</b> added to your cart!
-      </span>,
-    );
+    dispatch(addItemToCart(itemToAdd))
+      .unwrap()
+      .then(() => {
+        toast.success(
+          <span>
+            <b>{product.product_name}</b> added to your cart!
+          </span>,
+        );
+      })
+      .catch(() => {});
   }
 
   return (
