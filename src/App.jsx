@@ -13,6 +13,10 @@ import Home from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
 import FullPageSpinner from "./UI/FullPageSpinner";
 
+import ProtectedRoute from "./guards/ProtectedRoute";
+import GuestRoute from "./guards/GuestRoute";
+import AdminRoute from "./guards/AdminRoute";
+
 const SignUp = lazy(() => import("./pages/SignUp"));
 const Login = lazy(() => import("./pages/Login"));
 const Cart = lazy(() => import("./pages/Cart"));
@@ -42,23 +46,76 @@ function App() {
       errorElement: <ErrorPage />,
       children: [
         { path: "/", element: <Home /> },
-        { path: "/login", element: <Login /> },
-        { path: "/signup", element: <SignUp /> },
-        { path: "/cart", element: <Cart /> },
         { path: "/menu", element: <Menu /> },
-        { path: "/checkout", element: <Checkout /> },
+
+        // global routes only without login
+        {
+          path: "/login",
+          element: (
+            <GuestRoute>
+              <Suspense fallback={<FullPageSpinner />}>
+                <Login />
+              </Suspense>
+            </GuestRoute>
+          ),
+        },
+        {
+          path: "/signup",
+          element: (
+            <GuestRoute>
+              <Suspense fallback={<FullPageSpinner />}>
+                <SignUp />
+              </Suspense>
+            </GuestRoute>
+          ),
+        },
+
+        // user Protected Routes
+        {
+          path: "/cart",
+          element: (
+            <ProtectedRoute>
+              {" "}
+              <Suspense fallback={<FullPageSpinner />}>
+                <Cart />
+              </Suspense>{" "}
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/checkout",
+          element: (
+            <ProtectedRoute>
+              {" "}
+              <Suspense fallback={<FullPageSpinner />}>
+                <Checkout />
+              </Suspense>{" "}
+            </ProtectedRoute>
+          ),
+        },
         {
           path: "/orders/:orderId",
-          element: <OrderConfirmation />,
+          element: (
+            <ProtectedRoute>
+              {" "}
+              <Suspense fallback={<FullPageSpinner />}>
+                <OrderConfirmation />
+              </Suspense>{" "}
+            </ProtectedRoute>
+          ),
         },
       ],
     },
+
+    // admin Protected Routes
     {
       path: "/dashboard",
       element: (
-        <Suspense fallback={<FullPageSpinner />}>
-          <DashboardLayout />
-        </Suspense>
+        <AdminRoute>
+          <Suspense fallback={<FullPageSpinner />}>
+            <DashboardLayout />
+          </Suspense>
+        </AdminRoute>
       ),
       children: [
         { index: true, element: <Navigate replace to="overview" /> },
@@ -73,7 +130,6 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <RouterProvider router={router} />
-      {/* Toaster for notification */}
       <Toaster
         position="top-right"
         reverseOrder={false}
@@ -85,12 +141,8 @@ function App() {
             fontSize: "14px",
             fontWeight: "500",
           },
-          success: {
-            duration: 3000,
-          },
-          error: {
-            duration: 3000,
-          },
+          success: { duration: 3000 },
+          error: { duration: 3000 },
         }}
       />
     </QueryClientProvider>
