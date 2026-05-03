@@ -4,12 +4,11 @@ import { ArrowRight, Lock } from "lucide-react";
 
 import Button from "../UI/Button";
 import { formatCurrency } from "../utils/helpers";
-import { useLocation } from "react-router-dom";
 
-function CartSummary() {
+function OrderSummary({ hideCheckoutButton }) {
   const { totalQuantity, totalAmount } = useSelector((state) => state.cart);
-  const location = useLocation();
-  const shipping = 5;
+  const shipping = totalQuantity > 0 ? 5 : 0;
+
   const { tax, grandTotal } = useMemo(() => {
     const calculatedTax = Number((0.14 * totalAmount).toFixed(2));
     const calculatedGrandTotal = Number(
@@ -20,7 +19,7 @@ function CartSummary() {
       tax: calculatedTax,
       grandTotal: calculatedGrandTotal,
     };
-  }, [totalAmount]);
+  }, [totalAmount, shipping]);
 
   return (
     <div className="lg:col-span-5 xl:col-span-4 w-full flex justify-center lg:block">
@@ -57,9 +56,12 @@ function CartSummary() {
           </span>
         </div>
 
-        {location.pathname === "/cart" && (
-          <div className="w-full">
-            <Button to={`/checkout`}>
+        {!hideCheckoutButton && (
+          <div className="w-full mx-auto ">
+            <Button
+              to="/checkout"
+              className="w-full flex items-center justify-center gap-2"
+            >
               Proceed to Checkout
               <ArrowRight size={18} />
             </Button>
@@ -75,4 +77,4 @@ function CartSummary() {
   );
 }
 
-export default CartSummary;
+export default OrderSummary;

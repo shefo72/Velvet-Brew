@@ -18,6 +18,7 @@ const Login = lazy(() => import("./pages/Login"));
 const Cart = lazy(() => import("./pages/Cart"));
 const OrderConfirmation = lazy(() => import("./pages/OrderConfirmation"));
 const Menu = lazy(() => import("./pages/Menu"));
+const Checkout = lazy(() => import("./pages/Checkout"));
 
 const DashboardLayout = lazy(() => import("./UI/DashboardLayout"));
 const DashboardProducts = lazy(() => import("./pages/DashboardProducts"));
@@ -45,6 +46,7 @@ function App() {
         { path: "/signup", element: <SignUp /> },
         { path: "/cart", element: <Cart /> },
         { path: "/menu", element: <Menu /> },
+        { path: "/checkout", element: <Checkout /> },
         {
           path: "/orders/:orderId",
           element: <OrderConfirmation />,
