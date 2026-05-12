@@ -43,7 +43,7 @@ export default function InventoryStatus() {
 
       <div className="px-6 pb-5 text-center">
         <Button type="secondary" to="/dashboard/inventory">
-          Manage Full Inventory
+          View full inventory
         </Button>
       </div>
     </div>

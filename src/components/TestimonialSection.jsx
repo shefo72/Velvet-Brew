@@ -9,50 +9,50 @@ const testimonials = [
   {
     id: 1,
     testimonial:
-      "This coffee shop represents a perfect balance of bold flavors and ethical sourcing. Every single cup demonstrates a clear commitment to quality, making it a truly revolutionary addition to our community.",
+      "This establishment achieves a perfect balance between bold flavors and ethical sourcing. Every cup demonstrates an unwavering commitment to quality and transparency, making it a truly revolutionary and welcome addition to our local community.",
     author: "Ahmed Sherif",
-    role: "Political critic",
+    role: "Political Critic",
   },
   {
     id: 2,
     testimonial:
-      "Finding a place that inspires my creative process is usually quite difficult. However, the rich aromas and perfectly crafted lattes here provide the exact spark my imagination needs every single morning.",
+      "Finding a space that consistently inspires my creative process is often challenging. However, the rich aromas and masterfully crafted beverages here provide the exact spark my imagination requires to begin work every single morning.",
     author: "Abdelrahman Osama",
     role: "Local Artist",
   },
   {
     id: 3,
     testimonial:
-      "It takes only a sip to recognize the exceptional quality of these beans—precisely brewed, rich in flavor, and crafted by a truly skilled barista",
+      "It requires only a single sip to deduce the exceptional quality of these beans. Each beverage is precisely brewed, remarkably rich in flavor, and meticulously crafted by a barista who truly masters their profession.",
     author: "Sherlock Holmes",
     role: "Detective",
   },
   {
     id: 4,
     testimonial:
-      "The warm lighting and beautifully textured foam on every cappuccino remind me of a fine impressionist painting. It is a wonderfully peaceful environment to sketch, sip, and simply observe daily life.",
+      "The ambient lighting and beautifully textured foam on every cappuccino remind me of a fine impressionist painting. It provides a wonderfully peaceful environment to sketch, savor my drink, and quietly observe the daily life.",
     author: "Mary Cassatt",
     role: "Painter",
   },
   {
     id: 5,
     testimonial:
-      "Every detail in this establishment is orchestrated with absolute precision and grand vision. The complex layers of flavor in their signature espresso.",
+      "Every single detail in this establishment is orchestrated with absolute precision and a grand vision. The incredibly complex layers of flavor in their signature espresso demonstrate a masterful dedication to the true art of coffee.",
     author: "Christopher Nolan",
     role: "Film Director",
   },
   {
     id: 6,
     testimonial:
-      "ما يُميز هذا المكان ليس فقط جودة القهوة، بل الانضباط الواضح في الأداء والدقة في التنفيذ. كل خطوة محسوبة، وكل فنجان يُعد وكأنه جزء من خطة محكمة لا تقبل الخطأ. هذا المستوى من الالتزام هو ما يصنع الفارق الحقيقي.",
+      "What distinguishes this place is not merely the coffee's quality, but the remarkable discipline in its execution. Every step is meticulously calculated, delivering a flawless cup that reflects a profound commitment to absolute excellence.",
     author: "Saad Eldin Elshazly",
     role: "Military Commander",
   },
   {
     id: 7,
     testimonial:
-      "このコーヒーショップは、大胆な風味と倫理的な調達の完璧なバランスを体現しています。一杯一杯に品質への強いこだわりが感じられ、私たちのコミュニティにとって本当に革新的な存在です。",
-    author: "Park Ji-sung",
+      "This coffee shop exemplifies the perfect balance of dynamic energy and refined technique. The exceptional consistency in every cup showcases a remarkable dedication to quality, making it an outstanding and energizing staple in our daily routine.",
+    author: "Edin Hazard",
     role: "Football Player",
   },
 ];
